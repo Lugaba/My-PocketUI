@@ -11,10 +11,13 @@ class SwiftTableViewController: UITableViewController, UISearchBarDelegate {
     
     let searchController = UISearchController(searchResultsController: nil)
     var contentItems = ["Bom dia", "Tudo bem"]
+    var numberOfContent = 2
     var search = [String]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        title = "Swift"
         
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addLine))
         addButton.tintColor = UIColor(red: 0.77, green: 0.25, blue: 0.25, alpha: 1.00)
@@ -25,7 +28,10 @@ class SwiftTableViewController: UITableViewController, UISearchBarDelegate {
         
         search = contentItems
         
-        title = "Swift"
+        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(sender:)))
+        tableView.addGestureRecognizer(longPress)
+        
+        
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -52,7 +58,7 @@ class SwiftTableViewController: UITableViewController, UISearchBarDelegate {
     
     @objc func addLineTableView(newContent: String) {
         contentItems.insert(newContent, at: 0)
-        search = contentItems
+        search =  contentItems
         let indexPath = IndexPath(row: 0, section: 0)
         tableView.insertRows(at: [indexPath], with: .automatic)
     }
@@ -60,7 +66,7 @@ class SwiftTableViewController: UITableViewController, UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         search.removeAll()
         if searchText == ""{
-            search += contentItems
+            search = contentItems
         } else {
             for item in contentItems {
                 if item.lowercased().contains(searchText.lowercased()) {
@@ -77,8 +83,26 @@ class SwiftTableViewController: UITableViewController, UISearchBarDelegate {
         tableView.reloadData()
     }
     
+    @objc private func handleLongPress(sender: UILongPressGestureRecognizer) {
+        if sender.state == .began {
+            let touchPoint = sender.location(in: tableView)
+            if let indexPath = tableView.indexPathForRow(at: touchPoint) {
+                if indexPath.row < contentItems.count-numberOfContent { // arrumar condicao
+                    let ac = UIAlertController(title: "Deletar a documentação '\(contentItems[indexPath.row])'", message: nil, preferredStyle: .alert)
+                    ac.addAction(UIAlertAction(title: "Confirmar", style: .destructive, handler: {
+                        [weak self] action in
+                        self?.contentItems.remove(at: indexPath.row)
+                        self?.search = self!.contentItems
+                        self?.tableView.reloadData()
+                    }))
+                    ac.addAction(UIAlertAction(title: "Cancelar", style: .cancel, handler: nil))
+                    present(ac, animated: true)
+                }
+                
+            }
+        }
+    }
     
-
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return search.count
@@ -86,7 +110,7 @@ class SwiftTableViewController: UITableViewController, UISearchBarDelegate {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        cell.textLabel?.text = contentItems[indexPath.row]
+        cell.textLabel?.text = search[indexPath.row]
         return cell
     }
 
