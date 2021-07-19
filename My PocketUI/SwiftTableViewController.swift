@@ -11,6 +11,7 @@ class SwiftTableViewController: UITableViewController, UISearchBarDelegate {
     
     let searchController = UISearchController(searchResultsController: nil)
     var contentItems = ["Bom dia", "Tudo bem"]
+    var userContent = [String]()
     var numberOfContent = 2
     var search = [String]()
 
@@ -26,7 +27,7 @@ class SwiftTableViewController: UITableViewController, UISearchBarDelegate {
         navigationItem.searchController = searchController
         searchController.searchBar.delegate = self
         
-        search = contentItems
+        search = userContent + contentItems
         
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(sender:)))
         tableView.addGestureRecognizer(longPress)
@@ -40,7 +41,8 @@ class SwiftTableViewController: UITableViewController, UISearchBarDelegate {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
-    // MARK: - Table view data source
+    
+    
     
     @objc func addLine() {
         let ac = UIAlertController(title: "Adicionar nova documentação", message: nil, preferredStyle: .alert)
@@ -52,22 +54,37 @@ class SwiftTableViewController: UITableViewController, UISearchBarDelegate {
             self?.addLineTableView(newContent: newContent)
         }
         
+        ac.addAction(UIAlertAction(title: "Cancelar", style: .cancel))
         ac.addAction(Action)
+        
         present(ac, animated: true)
     }
     
+    /// Adiciona uma nova linha na TAbleView de acordo com o input do usuário, caso esteja vazio libera um alerta
+    /// - Parameter newContent: String que o usuário escreveu no alerta
     @objc func addLineTableView(newContent: String) {
-        contentItems.insert(newContent, at: 0)
-        search =  contentItems
-        let indexPath = IndexPath(row: 0, section: 0)
-        tableView.insertRows(at: [indexPath], with: .automatic)
+        if newContent.trimmingCharacters(in: .whitespacesAndNewlines) != "" {
+            userContent.insert(newContent, at: 0)
+            search = userContent + contentItems
+            let indexPath = IndexPath(row: 0, section: 0)
+            tableView.insertRows(at: [indexPath], with: .automatic)
+        } else {
+            let ac = UIAlertController(title: "Nome vazio", message: "Crie um nome para a documentação da maneira correta", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            present(ac, animated: true)
+        }
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         search.removeAll()
-        if searchText == ""{
-            search = contentItems
+        if searchText.isEmpty {
+            search = userContent + contentItems
         } else {
+            for item in userContent {
+                if item.lowercased().contains(searchText.lowercased()) {
+                    search.append(item)
+                }
+            }
             for item in contentItems {
                 if item.lowercased().contains(searchText.lowercased()) {
                     search.append(item)
@@ -78,21 +95,32 @@ class SwiftTableViewController: UITableViewController, UISearchBarDelegate {
         tableView.reloadData()
     }
     
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        search = contentItems
+    /// Reinicia o filtro quando inicia a edicao da searchBar
+    /// - Parameter searchBar: searchBar criada
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        search = userContent + contentItems
         tableView.reloadData()
     }
     
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        search = userContent + contentItems
+        tableView.reloadData()
+    }
+    
+    
+    /// Recebe um longPressGesture e inicia o processo de deleçao de um conteudo adicionado pelo usuário
+    /// - Parameter sender: Linha da tableView que foi pressionada por um tempo (LongPressGesture)
     @objc private func handleLongPress(sender: UILongPressGestureRecognizer) {
         if sender.state == .began {
             let touchPoint = sender.location(in: tableView)
             if let indexPath = tableView.indexPathForRow(at: touchPoint) {
-                if indexPath.row < contentItems.count-numberOfContent { // arrumar condicao
-                    let ac = UIAlertController(title: "Deletar a documentação '\(contentItems[indexPath.row])'", message: nil, preferredStyle: .alert)
+                if userContent.contains(search[indexPath.row]) { // arrumar condicao
+                    let ac = UIAlertController(title: "Deletar a documentação '\(userContent[indexPath.row])'", message: nil, preferredStyle: .actionSheet)
                     ac.addAction(UIAlertAction(title: "Confirmar", style: .destructive, handler: {
                         [weak self] action in
-                        self?.contentItems.remove(at: indexPath.row)
-                        self?.search = self!.contentItems
+                        self?.userContent.remove(at: indexPath.row)
+                        guard let listaNovas = self?.userContent else {return}
+                        self?.search = listaNovas + self!.contentItems
                         self?.tableView.reloadData()
                     }))
                     ac.addAction(UIAlertAction(title: "Cancelar", style: .cancel, handler: nil))
@@ -102,6 +130,8 @@ class SwiftTableViewController: UITableViewController, UISearchBarDelegate {
             }
         }
     }
+    
+    // MARK: - Table view data source
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows

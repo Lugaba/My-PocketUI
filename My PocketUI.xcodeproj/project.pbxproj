@@ -14,6 +14,8 @@
 		DFD4ED0526A4BA96004E46B7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DFD4ED0426A4BA96004E46B7 /* Assets.xcassets */; };
 		DFD4ED0826A4BA96004E46B7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DFD4ED0626A4BA96004E46B7 /* LaunchScreen.storyboard */; };
 		DFD4ED1026A4C739004E46B7 /* SwiftTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD4ED0F26A4C739004E46B7 /* SwiftTableViewController.swift */; };
+		DFD4ED3526A5C129004E46B7 /* AprenderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD4ED3426A5C129004E46B7 /* AprenderViewController.swift */; };
+		DFD4ED3926A5C48D004E46B7 /* ResourceCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFD4ED3826A5C48D004E46B7 /* ResourceCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,8 @@
 		DFD4ED0726A4BA96004E46B7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DFD4ED0926A4BA96004E46B7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DFD4ED0F26A4C739004E46B7 /* SwiftTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftTableViewController.swift; sourceTree = "<group>"; };
+		DFD4ED3426A5C129004E46B7 /* AprenderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AprenderViewController.swift; sourceTree = "<group>"; };
+		DFD4ED3826A5C48D004E46B7 /* ResourceCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +70,8 @@
 				DFD4ED0626A4BA96004E46B7 /* LaunchScreen.storyboard */,
 				DFD4ED0926A4BA96004E46B7 /* Info.plist */,
 				DFD4ED0F26A4C739004E46B7 /* SwiftTableViewController.swift */,
+				DFD4ED3426A5C129004E46B7 /* AprenderViewController.swift */,
+				DFD4ED3826A5C48D004E46B7 /* ResourceCollectionViewCell.swift */,
 			);
 			path = "My PocketUI";
 			sourceTree = "<group>";
@@ -140,9 +146,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DFD4ED3526A5C129004E46B7 /* AprenderViewController.swift in Sources */,
 				DFD4ED0026A4BA94004E46B7 /* ViewController.swift in Sources */,
 				DFD4ED1026A4C739004E46B7 /* SwiftTableViewController.swift in Sources */,
 				DFD4ECFC26A4BA94004E46B7 /* AppDelegate.swift in Sources */,
+				DFD4ED3926A5C48D004E46B7 /* ResourceCollectionViewCell.swift in Sources */,
 				DFD4ECFE26A4BA94004E46B7 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -300,7 +308,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "lucaHummel.My-PocketUI";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -319,7 +327,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "lucaHummel.My-PocketUI";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

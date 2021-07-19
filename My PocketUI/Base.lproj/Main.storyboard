@@ -5,24 +5,71 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Aprender View Controller-->
         <scene sceneID="8tV-4m-wId">
             <objects>
-                <viewController id="d6z-q2-hu8" sceneMemberID="viewController">
+                <viewController id="d6z-q2-hu8" customClass="AprenderViewController" customModule="My_PocketUI" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="fwI-aF-voa">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Zev-5A-v7R">
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <color key="backgroundColor" red="0.95294117647058818" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="deviceRGB"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="ixl-Qx-eOa">
+                                    <size key="itemSize" width="335" height="70"/>
+                                    <size key="estimatedItemSize" width="335" height="70"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="LinkCell" id="e8D-AZ-dR9" customClass="ResourceCollectionViewCell" customModule="My_PocketUI" customModuleProvider="target">
+                                        <rect key="frame" x="39.5" y="0.0" width="335" height="70"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="dP5-ll-Isr">
+                                            <rect key="frame" x="0.0" y="0.0" width="335" height="70"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Te9-zU-Tzz">
+                                                    <rect key="frame" x="41" y="25" width="265" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </collectionViewCellContentView>
+                                        <size key="customSize" width="335" height="70"/>
+                                        <connections>
+                                            <outlet property="nameLabel" destination="Te9-zU-Tzz" id="Q8e-ko-sdI"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="d6z-q2-hu8" id="Omr-4f-5Tz"/>
+                                    <outlet property="delegate" destination="d6z-q2-hu8" id="Rjn-Fa-UKR"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="N6g-By-nbu"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Zev-5A-v7R" firstAttribute="trailing" secondItem="N6g-By-nbu" secondAttribute="trailing" id="1bk-KW-3Vs"/>
+                            <constraint firstItem="Zev-5A-v7R" firstAttribute="top" secondItem="N6g-By-nbu" secondAttribute="top" id="Aow-Pc-Q6i"/>
+                            <constraint firstItem="Zev-5A-v7R" firstAttribute="leading" secondItem="N6g-By-nbu" secondAttribute="leading" id="BDK-yo-4EX"/>
+                            <constraint firstItem="Zev-5A-v7R" firstAttribute="bottom" secondItem="N6g-By-nbu" secondAttribute="bottom" id="USq-ZI-3LN"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="hp7-g9-qIx"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1KA-eX-ChG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2122" y="-1194"/>
+            <point key="canvasLocation" x="2121.739130434783" y="-1194.6428571428571"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -38,7 +85,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2122" y="-443"/>
+            <point key="canvasLocation" x="2121.739130434783" y="-443.30357142857139"/>
         </scene>
         <!--Swift Table View Controller-->
         <scene sceneID="hWx-uX-cu1">
@@ -94,11 +141,11 @@
             </objects>
             <point key="canvasLocation" x="2122" y="1000"/>
         </scene>
-        <!--Item-->
+        <!--UIKit-->
         <scene sceneID="AJQ-Y1-lPJ">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="FcP-9w-iG2" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="7Zm-fv-37E"/>
+                    <tabBarItem key="tabBarItem" title="UIKit" image="mosaic.fill" catalog="system" id="7Zm-fv-37E"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="lFL-IQ-EPy">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -122,8 +169,10 @@
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="dE8-o9-Gch" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="vLP-8Y-LYh">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="selectedImageTintColor" red="0.76862745099999996" green="0.25490196079999999" blue="0.25490196079999999" alpha="1" colorSpace="deviceRGB"/>
                     </tabBar>
                     <connections>
                         <segue destination="4m8-6f-T6s" kind="relationship" relationship="viewControllers" id="SYm-JN-HQ7"/>
@@ -136,12 +185,13 @@
             </objects>
             <point key="canvasLocation" x="181" y="131"/>
         </scene>
-        <!--Item-->
+        <!--Swift-->
         <scene sceneID="f4P-mc-0kP">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="nc6-9b-9ry" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="nw3-Y7-p5A" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="hfx-1o-ihQ"/>
+                    <tabBarItem key="tabBarItem" title="Swift" image="swift" catalog="system" id="hfx-1o-ihQ">
+                        <color key="badgeColor" red="0.76862745099999996" green="0.25490196079999999" blue="0.25490196079999999" alpha="1" colorSpace="deviceRGB"/>
+                    </tabBarItem>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="JVW-Nu-13j">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -155,14 +205,15 @@
                         <segue destination="xLG-om-UHw" kind="relationship" relationship="rootViewController" id="ORh-ew-KDw"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nc6-9b-9ry" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1212" y="263"/>
         </scene>
-        <!--Item-->
+        <!--Pessoal-->
         <scene sceneID="NSm-P7-XMB">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="YZ7-9l-gdS" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="FgX-Px-IrE"/>
+                    <tabBarItem key="tabBarItem" title="Pessoal" image="person.fill" catalog="system" id="FgX-Px-IrE"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="q1p-Tz-T66">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -180,15 +231,21 @@
             </objects>
             <point key="canvasLocation" x="1212" y="1001"/>
         </scene>
-        <!--Item-->
+        <!--Aprender-->
         <scene sceneID="er4-4P-Dvf">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="4m8-6f-T6s" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="ky8-Gq-sPB"/>
+                    <tabBarItem key="tabBarItem" title="Aprender" image="book.fill" catalog="system" id="ky8-Gq-sPB"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="XOY-ud-7D2">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" red="0.76862745099999996" green="0.25490196079999999" blue="0.25490196079999999" alpha="1" colorSpace="deviceRGB"/>
+                        </textAttributes>
+                        <textAttributes key="largeTitleTextAttributes">
+                            <color key="textColor" red="0.76862745099999996" green="0.25490196079999999" blue="0.25490196079999999" alpha="1" colorSpace="deviceRGB"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -201,6 +258,10 @@
         </scene>
     </scenes>
     <resources>
+        <image name="book.fill" catalog="system" width="128" height="102"/>
+        <image name="mosaic.fill" catalog="system" width="128" height="114"/>
+        <image name="person.fill" catalog="system" width="128" height="120"/>
+        <image name="swift" catalog="system" width="128" height="106"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
