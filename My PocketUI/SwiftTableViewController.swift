@@ -15,8 +15,16 @@ class SwiftTableViewController: UITableViewController, UISearchBarDelegate {
     var numberOfContent = 2
     var search = [String]()
 
+    
+    
+    // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if let userContentSaved = UserDefaults.standard.stringArray(forKey: "userContent") {
+            userContent = userContentSaved
+        }
+        
         
         title = "Swift"
         
@@ -31,18 +39,10 @@ class SwiftTableViewController: UITableViewController, UISearchBarDelegate {
         
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(sender:)))
         tableView.addGestureRecognizer(longPress)
-        
-        
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
     
-    
+    // MARK: - Add new item function
     
     @objc func addLine() {
         let ac = UIAlertController(title: "Adicionar nova documentação", message: nil, preferredStyle: .alert)
@@ -68,12 +68,15 @@ class SwiftTableViewController: UITableViewController, UISearchBarDelegate {
             search = userContent + contentItems
             let indexPath = IndexPath(row: 0, section: 0)
             tableView.insertRows(at: [indexPath], with: .automatic)
+            UserDefaults.standard.setValue(userContent, forKey: "userContent")
         } else {
             let ac = UIAlertController(title: "Nome vazio", message: "Crie um nome para a documentação da maneira correta", preferredStyle: .alert)
             ac.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             present(ac, animated: true)
         }
     }
+    
+    // MARK: - SearchBar functions
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         search.removeAll()
@@ -107,6 +110,7 @@ class SwiftTableViewController: UITableViewController, UISearchBarDelegate {
         tableView.reloadData()
     }
     
+    // MARK: - Delete content (LongGesture)
     
     /// Recebe um longPressGesture e inicia o processo de deleçao de um conteudo adicionado pelo usuário
     /// - Parameter sender: Linha da tableView que foi pressionada por um tempo (LongPressGesture)
@@ -122,11 +126,11 @@ class SwiftTableViewController: UITableViewController, UISearchBarDelegate {
                         guard let listaNovas = self?.userContent else {return}
                         self?.search = listaNovas + self!.contentItems
                         self?.tableView.reloadData()
+                        UserDefaults.standard.setValue(self?.userContent, forKey: "userContent")
                     }))
                     ac.addAction(UIAlertAction(title: "Cancelar", style: .cancel, handler: nil))
                     present(ac, animated: true)
                 }
-                
             }
         }
     }
@@ -143,60 +147,5 @@ class SwiftTableViewController: UITableViewController, UISearchBarDelegate {
         cell.textLabel?.text = search[indexPath.row]
         return cell
     }
-
-    /*
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
-        return cell
-    }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

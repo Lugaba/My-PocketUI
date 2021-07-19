@@ -10,4 +10,6 @@ import UIKit
 class ResourceCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var linkLabel: UILabel!
+    
 }
