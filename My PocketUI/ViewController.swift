@@ -9,6 +9,7 @@ import UIKit
 
 class ViewController: UIViewController, UISearchBarDelegate, UICollectionViewDataSource, UICollectionViewDelegate {
     
+    @IBOutlet weak var barsCollection: UICollectionView!
     let searchController = UISearchController(searchResultsController: nil)
 
     override func viewDidLoad() {
@@ -29,10 +30,20 @@ class ViewController: UIViewController, UISearchBarDelegate, UICollectionViewDat
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "BarsCell", for: indexPath) as! BarCollectionViewCell
-        cell.imagem.image = UIImage(named: "navigation")
-        cell.imagem.contentMode = .scaleAspectFill
-        return cell
+        if collectionView == barsCollection {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "BarsCell", for: indexPath) as! BarCollectionViewCell
+            cell.imagem.image = UIImage(named: "navigation")
+            cell.layer.cornerRadius = 15
+            cell.imagem.contentMode = .scaleAspectFill
+            return cell
+        } else {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ViewsCell", for: indexPath) as! ViewCollectionViewCell
+            cell.layer.cornerRadius = 15
+            cell.imagem.image = UIImage(named: "table")
+            cell.imagem.contentMode = .scaleAspectFill
+            return cell
+        }
+        
     }
 
 }
