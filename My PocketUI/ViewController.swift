@@ -114,6 +114,14 @@ class ViewController: UIViewController, UISearchBarDelegate, UICollectionViewDat
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let vc = storyboard?.instantiateViewController(identifier: "listOfContent") as? SwiftTableViewController {
+            if collectionView == barsCollection {
+                vc.topic = 0
+            } else if collectionView == viewsCollection {
+                vc.topic = 1
+            } else {
+                vc.topic = 2
+            }
+            vc.content = indexPath.item
             navigationController?.pushViewController(vc, animated: true)
         }
     }

@@ -10,10 +10,13 @@ import UIKit
 class SwiftTableViewController: UITableViewController, UISearchBarDelegate {
     
     let searchController = UISearchController(searchResultsController: nil)
-    var contentItems = ["Bom dia", "Tudo bem"]
+    let saveKeys: [[String]] = [["Navigation Bars", "Search Bars", "Sidebars", "Status Bars", "Tab Bars", "Toolbars"], ["Action Sheets", "Activity Views", "Alerts", "Collections", "Image Views", "Pages", "Popovers", "Scroll Views", "Split Views", "Tables", "Text Views", "Web Views"], ["Buttons", "Color Wells", "Context Menus", "Edit Menus", "Labels", "Page Controls", "Pickers", "Progress Indicators", "Pull-Down Menus", "Refresh Content Controls", "Segmented Controls", "Sliders", "Steppers", "Switches", "Text Fields"], ["Swift"]]
     var userContent = [String]()
     var numberOfContent = 2
-    var search = [String]()
+    var search = [Topic]()
+    
+    var topic = 3
+    var content = 0
 
     
     
@@ -21,9 +24,15 @@ class SwiftTableViewController: UITableViewController, UISearchBarDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let userContentSaved = UserDefaults.standard.stringArray(forKey: "userContent") {
-            userContent = userContentSaved
+        createData()
+        
+        if let userContentSaved = UserDefaults.standard.stringArray(forKey: saveKeys[topic][content]) {
+            print(userContentSaved)
+            search[topic].contents[content].listUser = userContentSaved
         }
+        
+        search[topic].contents[content].listSearch = search[topic].contents[content].listUser + search[topic].contents[content].listContent
+        
         
         title = "Swift"
         
@@ -34,10 +43,12 @@ class SwiftTableViewController: UITableViewController, UISearchBarDelegate {
         navigationItem.searchController = searchController
         searchController.searchBar.delegate = self
         
-        search = userContent + contentItems
-        
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(sender:)))
         tableView.addGestureRecognizer(longPress)
+    }
+    
+    func createData() {
+        search = [Topic.init(contents: barsContents), Topic.init(contents: viewsContents), Topic.init(contents: controlsContent), Topic.init(contents: swiftContents)]
     }
 
     
@@ -46,16 +57,16 @@ class SwiftTableViewController: UITableViewController, UISearchBarDelegate {
     @objc func addLine() {
         let ac = UIAlertController(title: "Adicionar nova documentação", message: nil, preferredStyle: .alert)
         ac.addTextField()
-        
+
         let Action = UIAlertAction(title: "Criar", style: .default) {
             [weak self, weak ac] _ in
             guard let newContent = ac?.textFields?[0].text else {return}
             self?.addLineTableView(newContent: newContent)
         }
-        
+
         ac.addAction(UIAlertAction(title: "Cancelar", style: .cancel))
         ac.addAction(Action)
-        
+
         present(ac, animated: true)
     }
     
@@ -63,11 +74,11 @@ class SwiftTableViewController: UITableViewController, UISearchBarDelegate {
     /// - Parameter newContent: String que o usuário escreveu no alerta
     @objc func addLineTableView(newContent: String) {
         if newContent.trimmingCharacters(in: .whitespacesAndNewlines) != "" {
-            userContent.insert(newContent, at: 0)
-            search = userContent + contentItems
+            search[topic].contents[content].listUser.insert(newContent, at: 0)
+            search[topic].contents[content].listSearch = search[topic].contents[content].listUser + search[topic].contents[content].listContent
             let indexPath = IndexPath(row: 0, section: 0)
             tableView.insertRows(at: [indexPath], with: .automatic)
-            UserDefaults.standard.setValue(userContent, forKey: "userContent")
+            UserDefaults.standard.setValue(search[topic].contents[content].listUser, forKey: saveKeys[topic][content])
         } else {
             let ac = UIAlertController(title: "Nome vazio", message: "Crie um nome para a documentação da maneira correta", preferredStyle: .alert)
             ac.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
@@ -78,34 +89,35 @@ class SwiftTableViewController: UITableViewController, UISearchBarDelegate {
     // MARK: - SearchBar functions
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        search.removeAll()
+        search[topic].contents[content].listSearch.removeAll()
         if searchText.isEmpty {
-            search = userContent + contentItems
+            search[topic].contents[content].listSearch = search[topic].contents[content].listUser + search[topic].contents[content].listContent
         } else {
-            for item in userContent {
+            for item in search[topic].contents[content].listUser {
                 if item.lowercased().contains(searchText.lowercased()) {
-                    search.append(item)
+                    search[topic].contents[content].listSearch.append(item)
                 }
             }
-            for item in contentItems {
+            for item in search[topic].contents[content].listContent {
+                print(item)
                 if item.lowercased().contains(searchText.lowercased()) {
-                    search.append(item)
+                    print(item)
+                    search[topic].contents[content].listSearch.append(item)
                 }
             }
         }
-        
         tableView.reloadData()
     }
-    
+
     /// Reinicia o filtro quando inicia a edicao da searchBar
     /// - Parameter searchBar: searchBar criada
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        search = userContent + contentItems
+        search[topic].contents[content].listSearch = search[topic].contents[content].listUser + search[topic].contents[content].listContent
         tableView.reloadData()
     }
-    
+
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        search = userContent + contentItems
+        search[topic].contents[content].listSearch = search[topic].contents[content].listUser + search[topic].contents[content].listContent
         tableView.reloadData()
     }
     
@@ -117,15 +129,23 @@ class SwiftTableViewController: UITableViewController, UISearchBarDelegate {
         if sender.state == .began {
             let touchPoint = sender.location(in: tableView)
             if let indexPath = tableView.indexPathForRow(at: touchPoint) {
-                if userContent.contains(search[indexPath.row]) { // arrumar condicao
-                    let ac = UIAlertController(title: "Deletar a documentação '\(userContent[indexPath.row])'", message: nil, preferredStyle: .actionSheet)
+                if search[topic].contents[content].listUser.contains(search[topic].contents[content].listSearch[indexPath.row]) { // arrumar condicao
+                    let ac = UIAlertController(title: "Deletar a documentação '\(search[topic].contents[content].listUser[indexPath.row])'", message: nil, preferredStyle: .actionSheet)
                     ac.addAction(UIAlertAction(title: "Confirmar", style: .destructive, handler: {
                         [weak self] action in
-                        self?.userContent.remove(at: indexPath.row)
-                        guard let listaNovas = self?.userContent else {return}
-                        self?.search = listaNovas + self!.contentItems
+                        guard let topic = self?.topic else {return}
+                        guard let content = self?.content else {return}
+                        
+                        self?.search[topic].contents[content].listUser.remove(at: indexPath.row)
+                        
+                        guard let listaNovas = self?.search[topic].contents[content].listUser else {return}
+                        guard let listaContent = self?.search[topic].contents[content].listContent else {return}
+                        self?.search[topic].contents[content].listSearch = listaNovas + listaContent
                         self?.tableView.reloadData()
-                        UserDefaults.standard.setValue(self?.userContent, forKey: "userContent")
+                        
+                        guard let posiciaoChave = self?.saveKeys[topic][content] else {return}
+                        
+                        UserDefaults.standard.setValue(self?.search[topic].contents[content].listUser, forKey: posiciaoChave)
                     }))
                     ac.addAction(UIAlertAction(title: "Cancelar", style: .cancel, handler: nil))
                     present(ac, animated: true)
@@ -138,12 +158,12 @@ class SwiftTableViewController: UITableViewController, UISearchBarDelegate {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return search.count
+        return search[topic].contents[content].listSearch.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        cell.textLabel?.text = search[indexPath.row]
+        cell.textLabel?.text = search[topic].contents[content].listSearch[indexPath.row]
         return cell
     }
 
