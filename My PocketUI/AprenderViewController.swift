@@ -8,8 +8,8 @@
 import UIKit
 
 class AprenderViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
-    var resourcesName = ["100 Days Of Swift", "Stack Overflow"]
-    var resources = ["https://www.hackingwithswift.com/100", "https://stackoverflow.com"]
+    var resourcesName = ["100 Days Of Swift", "Curso de Stanford", "Stack Overflow", "UIKit Fundamentals", "Hacking with Swift", "iOS & Swift Videos", "Pedro Cacique", "Swift Tutorials", "zeroeumas", "Github Luca Hummel", "Apple"]
+    var resources = ["https://www.hackingwithswift.com/100", "https://www.youtube.com/watch?v=r18Bvr3Dyfg", "https://stackoverflow.com", "https://www.raywenderlich.com/16124941-uikit-fundamentals", "https://www.hackingwithswift.com", "https://www.raywenderlich.com/ios/videos", "https://www.youtube.com/c/PedroCacique/videos", "https://www.w3schools.in/swift-tutorial/", "https://www.instagram.com/zeroeumas/", "https://github.com/Lugaba?tab=repositories", "https://www.youtube.com/user/Apple/videos"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,6 +37,7 @@ class AprenderViewController: UIViewController, UICollectionViewDataSource, UICo
         cell.layer.cornerRadius = 15
         cell.backgroundColor = .white
         cell.nameLabel.text = resourcesName[indexPath.item]
+        cell.nameLabel.textColor = .black
         cell.linkLabel.text = resources[indexPath.item]
         cell.linkLabel.font = .systemFont(ofSize: 12)
         cell.linkLabel.textColor = UIColor(red: 0.42, green: 0.42, blue: 0.42, alpha: 1.00)

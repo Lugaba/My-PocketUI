@@ -25,7 +25,6 @@ class SwiftTableViewController: UITableViewController, UISearchBarDelegate {
             userContent = userContentSaved
         }
         
-        
         title = "Swift"
         
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addLine))

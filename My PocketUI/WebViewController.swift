@@ -23,17 +23,22 @@ class WebViewController: UIViewController, WKNavigationDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
-        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareTapped))
+        navigationItem.rightBarButtonItem?.tintColor = UIColor(red: 0.77, green: 0.25, blue: 0.25, alpha: 1.00)
         
         progressView = UIProgressView(progressViewStyle: .default)
         progressView.sizeToFit()
+        progressView.progressTintColor = UIColor(red: 0.77, green: 0.25, blue: 0.25, alpha: 1.00)
+        
+        
         let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let refresh = UIBarButtonItem(barButtonSystemItem: .refresh, target: webView, action: #selector(webView.reload))
+        refresh.tintColor = UIColor(red: 0.77, green: 0.25, blue: 0.25, alpha: 1.00)
         let backButton = UIBarButtonItem(barButtonSystemItem: .rewind, target: webView, action: #selector(webView.goBack))
+        backButton.tintColor = UIColor(red: 0.77, green: 0.25, blue: 0.25, alpha: 1.00)
         let forwardButton = UIBarButtonItem(barButtonSystemItem: .fastForward, target: webView, action: #selector(webView.goForward))
+        forwardButton.tintColor = UIColor(red: 0.77, green: 0.25, blue: 0.25, alpha: 1.00)
         let progressButton = UIBarButtonItem(customView: progressView)
-        
 
         toolbarItems = [backButton, forwardButton, spacer ,progressButton, spacer, refresh]
         navigationController?.setToolbarHidden(false, animated: false)
@@ -52,6 +57,12 @@ class WebViewController: UIViewController, WKNavigationDelegate {
         if keyPath == "estimatedProgress" {
             progressView.progress = Float(webView.estimatedProgress)
         }
+    }
+    
+    @objc func shareTapped() {
+        let vc = UIActivityViewController(activityItems: [urlString], applicationActivities: [])
+        vc.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
+        present(vc, animated: true)
     }
     
 
