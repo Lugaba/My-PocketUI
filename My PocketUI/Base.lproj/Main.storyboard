@@ -105,14 +105,14 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="My_PocketUI" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="1000"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="950"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YqI-Xw-DBq">
-                                <rect key="frame" x="0.0" y="88" width="414" height="829"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="779"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NJR-m9-kEA">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="1000"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="800"/>
                                         <subviews>
                                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="nw0-tI-E7a">
                                                 <rect key="frame" x="0.0" y="86" width="414" height="120"/>
@@ -286,7 +286,7 @@
                                             <constraint firstItem="mqF-u6-7FZ" firstAttribute="leading" secondItem="NJR-m9-kEA" secondAttribute="leading" id="gy5-WZ-nuz"/>
                                             <constraint firstItem="pe2-pU-nu6" firstAttribute="top" secondItem="nw0-tI-E7a" secondAttribute="bottom" constant="30" id="iMb-gy-kLu"/>
                                             <constraint firstItem="NVU-Yc-YEm" firstAttribute="leading" secondItem="NJR-m9-kEA" secondAttribute="leading" constant="20" id="jev-Aq-Es6"/>
-                                            <constraint firstAttribute="height" constant="1000" id="kGt-tw-R4g"/>
+                                            <constraint firstAttribute="height" constant="800" id="kGt-tw-R4g"/>
                                             <constraint firstItem="RWI-eE-XLd" firstAttribute="leading" secondItem="NJR-m9-kEA" secondAttribute="leading" constant="20" id="qLe-ba-uQc"/>
                                             <constraint firstAttribute="trailing" secondItem="Jw7-Qa-xPJ" secondAttribute="trailing" id="tZ1-M5-c5V"/>
                                             <constraint firstItem="Jw7-Qa-xPJ" firstAttribute="top" secondItem="NVU-Yc-YEm" secondAttribute="bottom" constant="20" id="unS-oH-AuO"/>
@@ -313,7 +313,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="5tk-yz-zvV"/>
-                    <size key="freeformSize" width="414" height="1000"/>
+                    <size key="freeformSize" width="414" height="950"/>
                     <connections>
                         <outlet property="barsCollection" destination="nw0-tI-E7a" id="hGQ-6D-nUk"/>
                         <outlet property="viewsCollection" destination="mqF-u6-7FZ" id="PYs-5E-lyw"/>
