@@ -17,13 +17,13 @@ class ContentViewController: UIViewController {
 
     override func loadView() {
         view = UIView()
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(red: 0.95, green: 0.95, blue: 0.97, alpha: 1.00)
         loadText()
         
         title = documentacao.title
         
         if elementos.isEmpty{
-            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Salvar", style: .plain, target: self, action: #selector(saveText))
+            navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveText))
             
             
             addTexto.translatesAutoresizingMaskIntoConstraints = false
@@ -37,6 +37,11 @@ class ContentViewController: UIViewController {
                 addTexto.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor)
             ])
         } else {
+            let editButton = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editText))
+            let shareButton = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareContent))
+            
+            navigationItem.rightBarButtonItems = [ shareButton, editButton]
+            
             for i in elementos {
                 print(i)
                 if i.hasPrefix("*||*"){
@@ -44,7 +49,8 @@ class ContentViewController: UIViewController {
                     let elemento = UITextView()
                     elemento.translatesAutoresizingMaskIntoConstraints = false
                     elemento.text = newCode
-                    elemento.backgroundColor = .lightGray
+                    elemento.textColor = .black
+                    elemento.backgroundColor = UIColor(red: 0.96, green: 0.96, blue: 0.96, alpha: 1.00)
                     elemento.isEditable = false
                     elemento.isScrollEnabled = false
                     view.addSubview(elemento)
@@ -54,6 +60,7 @@ class ContentViewController: UIViewController {
                     elemento.translatesAutoresizingMaskIntoConstraints = false
                     elemento.text = i
                     elemento.numberOfLines = 0
+                    elemento.textColor = .black
                     view.addSubview(elemento)
                     views.append(elemento)
                     
@@ -100,6 +107,38 @@ class ContentViewController: UIViewController {
     @objc func saveText() {
         documentacao.information = addTexto.text
         loadView()
+    }
+    
+    @objc func editText() {
+        navigationItem.rightBarButtonItems = []
+        
+        for i in views {
+            i.removeFromSuperview()
+        }
+        views.removeAll()
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveText))
+        
+        
+        addTexto.translatesAutoresizingMaskIntoConstraints = false
+        addTexto.textColor = .black
+        addTexto.backgroundColor = UIColor(red: 0.96, green: 0.96, blue: 0.96, alpha: 1.00)
+        addTexto.text = documentacao.information
+        view.addSubview(addTexto)
+        
+        NSLayoutConstraint.activate([
+            addTexto.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
+            addTexto.leadingAnchor.constraint(equalTo: view.layoutMarginsGuide.leadingAnchor),
+            addTexto.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor),
+            addTexto.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor)
+        ])
+        
+    }
+    
+    @objc func shareContent() {
+        let vc = UIActivityViewController(activityItems: elementos, applicationActivities: [])
+        vc.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
+        present(vc, animated: true)
     }
 
     
