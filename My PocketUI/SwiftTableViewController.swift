@@ -15,8 +15,8 @@ class SwiftTableViewController: UITableViewController, UISearchBarDelegate {
     var numberOfContent = 2
     var search = [Topic]()
     
-    var topic = 3
-    var content = 0
+    var topic: Int = 3
+    var content: Int = 0
 
     
     
@@ -26,15 +26,14 @@ class SwiftTableViewController: UITableViewController, UISearchBarDelegate {
         
         createData()
         
-        if let userContentSaved = UserDefaults.standard.stringArray(forKey: saveKeys[topic][content]) {
-            print(userContentSaved)
-            search[topic].contents[content].listUser = userContentSaved
-        }
-        
+//        if let userContentSaved = UserDefaults.standard.array(forKey: saveKeys[topic][content]) {
+//            print(userContentSaved)
+//        }
+                
         search[topic].contents[content].listSearch = search[topic].contents[content].listUser + search[topic].contents[content].listContent
         
         
-        title = "Swift"
+        title = search[topic].contents[content].name
         
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addLine))
         addButton.tintColor = UIColor(red: 0.77, green: 0.25, blue: 0.25, alpha: 1.00)
@@ -48,9 +47,8 @@ class SwiftTableViewController: UITableViewController, UISearchBarDelegate {
     }
     
     func createData() {
-        search = [Topic.init(contents: barsContents), Topic.init(contents: viewsContents), Topic.init(contents: controlsContent), Topic.init(contents: swiftContents)]
+        search = [Topic.init(contents: barsContents), Topic.init(contents: viewsContents), Topic.init(contents: controlsContent), Topic.init(contents: swiftContents), Topic.init(contents: pessoalContents)]
     }
-
     
     // MARK: - Add new item function
     
@@ -74,11 +72,11 @@ class SwiftTableViewController: UITableViewController, UISearchBarDelegate {
     /// - Parameter newContent: String que o usuário escreveu no alerta
     @objc func addLineTableView(newContent: String) {
         if newContent.trimmingCharacters(in: .whitespacesAndNewlines) != "" {
-            search[topic].contents[content].listUser.insert(newContent, at: 0)
+            search[topic].contents[content].listUser.insert(Documentation.init(title: newContent), at: 0)
             search[topic].contents[content].listSearch = search[topic].contents[content].listUser + search[topic].contents[content].listContent
             let indexPath = IndexPath(row: 0, section: 0)
             tableView.insertRows(at: [indexPath], with: .automatic)
-            UserDefaults.standard.setValue(search[topic].contents[content].listUser, forKey: saveKeys[topic][content])
+            //UserDefaults.standard.setValue(search[topic].contents[content].listUser, forKey: saveKeys[topic][content])
         } else {
             let ac = UIAlertController(title: "Nome vazio", message: "Crie um nome para a documentação da maneira correta", preferredStyle: .alert)
             ac.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
@@ -94,14 +92,12 @@ class SwiftTableViewController: UITableViewController, UISearchBarDelegate {
             search[topic].contents[content].listSearch = search[topic].contents[content].listUser + search[topic].contents[content].listContent
         } else {
             for item in search[topic].contents[content].listUser {
-                if item.lowercased().contains(searchText.lowercased()) {
+                if item.title.lowercased().contains(searchText.lowercased()) {
                     search[topic].contents[content].listSearch.append(item)
                 }
             }
             for item in search[topic].contents[content].listContent {
-                print(item)
-                if item.lowercased().contains(searchText.lowercased()) {
-                    print(item)
+                if item.title.lowercased().contains(searchText.lowercased()) {
                     search[topic].contents[content].listSearch.append(item)
                 }
             }
@@ -129,26 +125,29 @@ class SwiftTableViewController: UITableViewController, UISearchBarDelegate {
         if sender.state == .began {
             let touchPoint = sender.location(in: tableView)
             if let indexPath = tableView.indexPathForRow(at: touchPoint) {
-                if search[topic].contents[content].listUser.contains(search[topic].contents[content].listSearch[indexPath.row]) { // arrumar condicao
-                    let ac = UIAlertController(title: "Deletar a documentação '\(search[topic].contents[content].listUser[indexPath.row])'", message: nil, preferredStyle: .actionSheet)
-                    ac.addAction(UIAlertAction(title: "Confirmar", style: .destructive, handler: {
-                        [weak self] action in
-                        guard let topic = self?.topic else {return}
-                        guard let content = self?.content else {return}
-                        
-                        self?.search[topic].contents[content].listUser.remove(at: indexPath.row)
-                        
-                        guard let listaNovas = self?.search[topic].contents[content].listUser else {return}
-                        guard let listaContent = self?.search[topic].contents[content].listContent else {return}
-                        self?.search[topic].contents[content].listSearch = listaNovas + listaContent
-                        self?.tableView.reloadData()
-                        
-                        guard let posiciaoChave = self?.saveKeys[topic][content] else {return}
-                        
-                        UserDefaults.standard.setValue(self?.search[topic].contents[content].listUser, forKey: posiciaoChave)
-                    }))
-                    ac.addAction(UIAlertAction(title: "Cancelar", style: .cancel, handler: nil))
-                    present(ac, animated: true)
+                for documentation in search[topic].contents[content].listUser {
+                    if documentation.title.contains(search[topic].contents[content].listSearch[indexPath.row].title) { // arrumar condicao
+                        let ac = UIAlertController(title: "Deletar a documentação '\(search[topic].contents[content].listUser[indexPath.row].title)'", message: nil, preferredStyle: .actionSheet)
+                        ac.addAction(UIAlertAction(title: "Confirmar", style: .destructive, handler: {
+                            [weak self] action in
+                            guard let topic = self?.topic else {return}
+                            guard let content = self?.content else {return}
+                            
+                            self?.search[topic].contents[content].listUser.remove(at: indexPath.row)
+                            
+                            guard let listaNovas = self?.search[topic].contents[content].listUser else {return}
+                            guard let listaContent = self?.search[topic].contents[content].listContent else {return}
+                            self?.search[topic].contents[content].listSearch = listaNovas + listaContent
+                            self?.tableView.reloadData()
+                            
+                            //guard let posiciaoChave = self?.saveKeys[topic][content] else {return}
+                            
+                            //UserDefaults.standard.setValue(self?.search[topic].contents[content].listUser, forKey: posiciaoChave)
+                            // Documentation -> nao existe Swift
+                        }))
+                        ac.addAction(UIAlertAction(title: "Cancelar", style: .cancel, handler: nil))
+                        present(ac, animated: true)
+                    }
                 }
             }
         }
@@ -163,8 +162,9 @@ class SwiftTableViewController: UITableViewController, UISearchBarDelegate {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        cell.textLabel?.text = search[topic].contents[content].listSearch[indexPath.row]
+        cell.textLabel?.text = search[topic].contents[content].listSearch[indexPath.row].title
         return cell
     }
+    
 
 }

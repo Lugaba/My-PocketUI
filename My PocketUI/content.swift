@@ -7,6 +7,15 @@
 
 import Foundation
 
+class Topic {
+    var contents = [Content]()
+    
+    init(contents: [Content]) {
+        self.contents = contents
+    }
+}
+
+
 class Content {
     var listContent = [String]()
     var listUser = [String]()

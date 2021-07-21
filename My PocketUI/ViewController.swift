@@ -9,8 +9,11 @@ import UIKit
 
 class ViewController: UIViewController, UISearchBarDelegate, UICollectionViewDataSource, UICollectionViewDelegate {
     
-    var listContent = [["Navigation Bars", "Search Bars", "Sidebars", "Status Bars", "Tab Bars", "Toolbars"], ["Action Sheets", "Activity Views", "Alerts", "Collections", "Image Views", "Pages", "Popovers", "Scroll Views", "Split Views", "Tables", "Text Views", "Web Views"], ["Buttons", "Color Wells", "Context Menus", "Edit Menus", "Labels", "Page Controls", "Pickers", "Progress Indicators", "Pull-Down Menus", "Refresh Content Controls", "Segmented Controls", "Sliders", "Steppers", "Switches", "Text Fields"]]
-    var search = [[String]]()
+    //var listContent = [["Navigation Bars", "Search Bars", "Sidebars", "Status Bars", "Tab Bars", "Toolbars"], ["Action Sheets", "Activity Views", "Alerts", "Collections", "Image Views", "Pages", "Popovers", "Scroll Views", "Split Views", "Tables", "Text Views", "Web Views"], ["Buttons", "Color Wells", "Context Menus", "Edit Menus", "Labels", "Page Controls", "Pickers", "Progress Indicators", "Pull-Down Menus", "Refresh Content Controls", "Segmented Controls", "Sliders", "Steppers", "Switches", "Text Fields"]]
+    
+    var listContent: [[Content]] = [barsContents, viewsContents, controlsContent]
+    
+    var search = [[Content]]()
     
     @IBOutlet weak var barsCollection: UICollectionView!
     @IBOutlet weak var viewsCollection: UICollectionView!
@@ -38,17 +41,18 @@ class ViewController: UIViewController, UISearchBarDelegate, UICollectionViewDat
             search = listContent
         } else {
             for item in listContent[0] {
-                if item.lowercased().contains(searchText.lowercased()) {
+                if item.name.lowercased().contains(searchText.lowercased()) {
                     search[0].append(item)
                 }
             }
             for item in listContent[1] {
-                if item.lowercased().contains(searchText.lowercased()) {
+                
+                if item.name.lowercased().contains(searchText.lowercased()) {
                     search[1].append(item)
                 }
             }
             for item in listContent[2] {
-                if item.lowercased().contains(searchText.lowercased()) {
+                if item.name.lowercased().contains(searchText.lowercased()) {
                     search[2].append(item)
                 }
             }
