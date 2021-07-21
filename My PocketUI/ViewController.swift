@@ -46,7 +46,6 @@ class ViewController: UIViewController, UISearchBarDelegate, UICollectionViewDat
                 }
             }
             for item in listContent[1] {
-                
                 if item.name.lowercased().contains(searchText.lowercased()) {
                     search[1].append(item)
                 }
@@ -57,7 +56,6 @@ class ViewController: UIViewController, UISearchBarDelegate, UICollectionViewDat
                 }
             }
         }
-        print(search)
         barsCollection.reloadData()
         viewsCollection.reloadData()
         controlsCollection.reloadData()
@@ -120,10 +118,13 @@ class ViewController: UIViewController, UISearchBarDelegate, UICollectionViewDat
         if let vc = storyboard?.instantiateViewController(identifier: "listOfContent") as? SwiftTableViewController {
             if collectionView == barsCollection {
                 vc.topic = 0
+                barsContents = search[0]
             } else if collectionView == viewsCollection {
                 vc.topic = 1
+                viewsContents = search[1]
             } else {
                 vc.topic = 2
+                controlsContent = search[2]
             }
             vc.content = indexPath.item
             navigationController?.pushViewController(vc, animated: true)

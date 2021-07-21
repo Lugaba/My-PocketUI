@@ -35,7 +35,7 @@ class Content {
     }
 }
 
-class Documentation: Codable {
+class Documentation {
     var title: String // ["title", "information"]
     var information: String
     
