@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		DF1F093126A6F39B00E23166 /* ControlCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1F093026A6F39B00E23166 /* ControlCollectionViewCell.swift */; };
 		DF1F093326A735A000E23166 /* globalData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF1F093226A735A000E23166 /* globalData.swift */; };
+		DF4ED35D26A89FC800CBB765 /* ContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF4ED35C26A89FC800CBB765 /* ContentViewController.swift */; };
 		DF7FEA2726A83F0E00D47382 /* PessoalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7FEA2626A83F0E00D47382 /* PessoalViewController.swift */; };
 		DF7FEA2926A83FFE00D47382 /* PessoalCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7FEA2826A83FFE00D47382 /* PessoalCollectionViewCell.swift */; };
 		DFA4EE9F26A75667001E7EF1 /* classStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA4EE9E26A75667001E7EF1 /* classStruct.swift */; };
@@ -29,6 +30,7 @@
 /* Begin PBXFileReference section */
 		DF1F093026A6F39B00E23166 /* ControlCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlCollectionViewCell.swift; sourceTree = "<group>"; };
 		DF1F093226A735A000E23166 /* globalData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = globalData.swift; sourceTree = "<group>"; };
+		DF4ED35C26A89FC800CBB765 /* ContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewController.swift; sourceTree = "<group>"; };
 		DF7FEA2626A83F0E00D47382 /* PessoalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PessoalViewController.swift; sourceTree = "<group>"; };
 		DF7FEA2826A83FFE00D47382 /* PessoalCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PessoalCollectionViewCell.swift; sourceTree = "<group>"; };
 		DFA4EE9E26A75667001E7EF1 /* classStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = classStruct.swift; sourceTree = "<group>"; };
@@ -59,6 +61,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DF4ED35A26A89E2300CBB765 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				DFD4ED3A26A5ED1E004E46B7 /* WebViewController.swift */,
+				DFD4ECFF26A4BA94004E46B7 /* ViewController.swift */,
+				DFD4ED0F26A4C739004E46B7 /* SwiftTableViewController.swift */,
+				DFD4ED3426A5C129004E46B7 /* AprenderViewController.swift */,
+				DF7FEA2626A83F0E00D47382 /* PessoalViewController.swift */,
+				DF4ED35C26A89FC800CBB765 /* ContentViewController.swift */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		DF4ED35B26A89E5800CBB765 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				DF7FEA2826A83FFE00D47382 /* PessoalCollectionViewCell.swift */,
+				DFD4ED3826A5C48D004E46B7 /* ResourceCollectionViewCell.swift */,
+				DF1F093026A6F39B00E23166 /* ControlCollectionViewCell.swift */,
+				DFD4ED3E26A60756004E46B7 /* BarCollectionViewCell.swift */,
+				DFD4ED4026A60DC9004E46B7 /* ViewCollectionViewCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		DFD4ECEF26A4BA94004E46B7 = {
 			isa = PBXGroup;
 			children = (
@@ -78,24 +105,16 @@
 		DFD4ECFA26A4BA94004E46B7 /* My PocketUI */ = {
 			isa = PBXGroup;
 			children = (
+				DF4ED35B26A89E5800CBB765 /* Cells */,
+				DF4ED35A26A89E2300CBB765 /* Screens */,
 				DFD4ECFB26A4BA94004E46B7 /* AppDelegate.swift */,
 				DFD4ECFD26A4BA94004E46B7 /* SceneDelegate.swift */,
-				DFD4ECFF26A4BA94004E46B7 /* ViewController.swift */,
 				DFD4ED0126A4BA94004E46B7 /* Main.storyboard */,
 				DFD4ED0426A4BA96004E46B7 /* Assets.xcassets */,
 				DFD4ED0626A4BA96004E46B7 /* LaunchScreen.storyboard */,
 				DFD4ED0926A4BA96004E46B7 /* Info.plist */,
-				DFD4ED0F26A4C739004E46B7 /* SwiftTableViewController.swift */,
-				DFD4ED3426A5C129004E46B7 /* AprenderViewController.swift */,
-				DFD4ED3826A5C48D004E46B7 /* ResourceCollectionViewCell.swift */,
-				DFD4ED3A26A5ED1E004E46B7 /* WebViewController.swift */,
-				DFD4ED3E26A60756004E46B7 /* BarCollectionViewCell.swift */,
-				DFD4ED4026A60DC9004E46B7 /* ViewCollectionViewCell.swift */,
-				DF1F093026A6F39B00E23166 /* ControlCollectionViewCell.swift */,
 				DF1F093226A735A000E23166 /* globalData.swift */,
 				DFA4EE9E26A75667001E7EF1 /* classStruct.swift */,
-				DF7FEA2626A83F0E00D47382 /* PessoalViewController.swift */,
-				DF7FEA2826A83FFE00D47382 /* PessoalCollectionViewCell.swift */,
 			);
 			path = "My PocketUI";
 			sourceTree = "<group>";
@@ -180,6 +199,7 @@
 				DFD4ED3F26A60756004E46B7 /* BarCollectionViewCell.swift in Sources */,
 				DFD4ED1026A4C739004E46B7 /* SwiftTableViewController.swift in Sources */,
 				DFD4ECFC26A4BA94004E46B7 /* AppDelegate.swift in Sources */,
+				DF4ED35D26A89FC800CBB765 /* ContentViewController.swift in Sources */,
 				DFD4ED3B26A5ED1E004E46B7 /* WebViewController.swift in Sources */,
 				DFD4ED3926A5C48D004E46B7 /* ResourceCollectionViewCell.swift in Sources */,
 				DF1F093326A735A000E23166 /* globalData.swift in Sources */,

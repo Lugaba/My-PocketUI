@@ -166,5 +166,12 @@ class SwiftTableViewController: UITableViewController, UISearchBarDelegate {
         return cell
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let vc = storyboard?.instantiateViewController(identifier: "ContentScreen") as? ContentViewController {
+            vc.documentacao = search[topic].contents[content].listSearch[indexPath.row]
+            navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+    
 
 }

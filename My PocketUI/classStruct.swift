@@ -39,6 +39,11 @@ class Documentation {
     var title: String // ["title", "information"]
     var information: String
     
+    init(title: String, information: String) {
+        self.title = title
+        self.information = information
+    }
+    
     init(title: String){
         self.title = title
         self.information = ""
