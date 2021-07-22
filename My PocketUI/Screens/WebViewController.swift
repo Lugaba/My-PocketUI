@@ -17,6 +17,7 @@ class WebViewController: UIViewController, WKNavigationDelegate {
     override func loadView() {
         webView = WKWebView()
         webView.navigationDelegate = self
+        webView.backgroundColor = UIColor(named: "bgcolor")
         view = webView
     }
 

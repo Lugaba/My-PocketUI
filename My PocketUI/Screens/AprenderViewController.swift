@@ -36,6 +36,7 @@ class AprenderViewController: UIViewController, UICollectionViewDataSource, UICo
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "LinkCell", for: indexPath) as! ResourceCollectionViewCell
         cell.layer.cornerRadius = 15
         cell.backgroundColor = .white
+        cell.imagem.image = UIImage(named: "aprenderImage")
         cell.nameLabel.text = resourcesName[indexPath.item]
         cell.nameLabel.textColor = .black
         cell.linkLabel.text = resources[indexPath.item]

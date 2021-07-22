@@ -12,4 +12,5 @@ class ResourceCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var linkLabel: UILabel!
     
+    @IBOutlet weak var imagem: UIImageView!
 }
