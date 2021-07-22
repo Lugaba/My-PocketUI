@@ -32,10 +32,15 @@ class ContentViewController: UIViewController {
         if elementos.isEmpty{
             editText()
         } else {
-            let editButton = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editText))
             let shareButton = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareContent))
+            if documentacao.isEditable == true {
+                let editButton = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editText))
+                navigationItem.rightBarButtonItems = [shareButton, editButton]
+            } else {
+                navigationItem.rightBarButtonItems = [shareButton]
+            }
             
-            navigationItem.rightBarButtonItems = [shareButton, editButton]
+            
             
             // add the scroll view to self.view
             self.view.addSubview(scrollView)

@@ -15,7 +15,6 @@ class SwiftTableViewController: UITableViewController, UISearchBarDelegate {
     var tableContent = [Documentation]()
     var search = [Documentation]()
     
-    var topic: Int = 3
     var content: String = "Swift"
 
     
@@ -26,7 +25,10 @@ class SwiftTableViewController: UITableViewController, UISearchBarDelegate {
         
         loadData()
         
-        
+        //for i in try! CoreDataStackDocumentation.getDocumentations() {
+            //print(i.title)
+            //try! CoreDataStackDocumentation.deleteDocumentation(documentation: i)
+        //}
         
         title = content
         
@@ -41,16 +43,17 @@ class SwiftTableViewController: UITableViewController, UISearchBarDelegate {
         tableView.addGestureRecognizer(longPress)
     }
     
-//    func createData() {
-//        search = [Topic.init(contents: barsContents), Topic.init(contents: viewsContents), Topic.init(contents: controlsContent), Topic.init(contents: swiftContents), Topic.init(contents: pessoalContents)]
-//    }
-    
     func loadData() {
-        let documentations = try! CoreDataStackDocumentation.getDocumentations()
-        for documentation in documentations {
-            guard let myContentUn = documentation.myContent else {return}
-            if myContentUn == content {
-                tableContent.append(documentation)
+        tableContent.removeAll()
+        if try! CoreDataStackDocumentation.getDocumentations().count == 0 {
+            tableContent.append(try! CoreDataStackDocumentation.createDocumentation(title: "Criada", information: "Criamos uma váriavel ou constante que usará o nosso vetor, nesse vetor vamos aplicar o método 'joined(separator: )' que irá juntar todo o vetor em uma string de acordo com um separador, por exemplo, eu quero juntar um vetor em uma string separando os elementos a partir de vírgula:\n*||*let minhaString = meuVetor.joined(separator: ',')", isEditable: false, myContent: "Swift"))
+        } else {
+            let documentations = try! CoreDataStackDocumentation.getDocumentations()
+            for documentation in documentations {
+                guard let myContentUn = documentation.myContent else {return}
+                if myContentUn == content {
+                    tableContent.append(documentation)
+                }
             }
         }
         search = tableContent
@@ -79,9 +82,9 @@ class SwiftTableViewController: UITableViewController, UISearchBarDelegate {
     @objc func addLineTableView(newDocumentationTitle: String) {
         if newDocumentationTitle.trimmingCharacters(in: .whitespacesAndNewlines) != "" {
             let newDocumentation = try! CoreDataStackDocumentation.createDocumentation(title: newDocumentationTitle, information: "", isEditable: true, myContent: content)
-            tableContent.insert(newDocumentation, at: 0)
+            tableContent.append(newDocumentation)
             search = tableContent
-            let indexPath = IndexPath(row: 0, section: 0)
+            let indexPath = IndexPath(row: tableContent.count-1, section: 0)
             tableView.insertRows(at: [indexPath], with: .automatic)
             try! CoreDataStackDocumentation.saveContext()
         } else {
@@ -127,26 +130,20 @@ class SwiftTableViewController: UITableViewController, UISearchBarDelegate {
         if sender.state == .began {
             let touchPoint = sender.location(in: tableView)
             if let indexPath = tableView.indexPathForRow(at: touchPoint) {
-                for documentation in search {
-                    if documentation.isEditable == true { // arrumar condicao
-                        let ac = UIAlertController(title: "Deletar a documentação '\(documentation.title ?? "NONE")'", message: nil, preferredStyle: .actionSheet)
-                        ac.addAction(UIAlertAction(title: "Confirmar", style: .destructive, handler: {
-                            [weak self] action in
-                            
-                            
-                            guard let tableContentUn = self?.tableContent else {return}
-                            
-                            try! CoreDataStackDocumentation.deleteDocumentation(documentation: tableContentUn[indexPath.row])
-                            self?.tableContent.remove(at: indexPath.row)
-                            
-                            guard let tableContentUnMod = self?.tableContent else {return}
-                            
-                            self?.search = tableContentUnMod
-                            self?.tableView.reloadData()
-                        }))
-                        ac.addAction(UIAlertAction(title: "Cancelar", style: .cancel, handler: nil))
-                        present(ac, animated: true)
-                    }
+                if search[indexPath.row].isEditable == true {
+                    let ac = UIAlertController(title: "Deletar a documentação '\(search[indexPath.row].title ?? "NONE")'", message: nil, preferredStyle: .actionSheet)
+                    ac.addAction(UIAlertAction(title: "Confirmar", style: .destructive, handler: {
+                        [weak self] action in
+                        
+                        
+                        guard let searchUn = self?.search[indexPath.row] else {return}
+                        
+                        try! CoreDataStackDocumentation.deleteDocumentation(documentation: searchUn)
+                        self?.loadData()
+                        self?.tableView.reloadData()
+                    }))
+                    ac.addAction(UIAlertAction(title: "Cancelar", style: .cancel, handler: nil))
+                    present(ac, animated: true)
                 }
             }
         }

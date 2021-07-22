@@ -61,7 +61,7 @@ class PessoalViewController: UIViewController, UISearchBarDelegate, UICollection
         if name.trimmingCharacters(in: .whitespacesAndNewlines) != "" {
             _ = try! CoreDataStackContent.createContent(nome: name)
             search = try! CoreDataStackContent.getContents()
-            let indexPath = IndexPath(row: 0, section: 0)
+            let indexPath = IndexPath(row: search.count-1, section: 0)
             pessoalCollection.insertItems(at: [indexPath])
         } else {
             let ac = UIAlertController(title: "Nome vazio", message: "Crie um nome para a documentação da maneira correta", preferredStyle: .alert)
@@ -147,7 +147,6 @@ class PessoalViewController: UIViewController, UISearchBarDelegate, UICollection
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let vc = storyboard?.instantiateViewController(identifier: "listOfContent") as? SwiftTableViewController {
-            vc.topic = 4
             vc.content = search[indexPath.item].nome!
             navigationController?.pushViewController(vc, animated: true)
         }
