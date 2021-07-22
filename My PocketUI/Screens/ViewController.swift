@@ -9,11 +9,11 @@ import UIKit
 
 class ViewController: UIViewController, UISearchBarDelegate, UICollectionViewDataSource, UICollectionViewDelegate {
     
-    //var listContent = [["Navigation Bars", "Search Bars", "Sidebars", "Status Bars", "Tab Bars", "Toolbars"], ["Action Sheets", "Activity Views", "Alerts", "Collections", "Image Views", "Pages", "Popovers", "Scroll Views", "Split Views", "Tables", "Text Views", "Web Views"], ["Buttons", "Color Wells", "Context Menus", "Edit Menus", "Labels", "Page Controls", "Pickers", "Progress Indicators", "Pull-Down Menus", "Refresh Content Controls", "Segmented Controls", "Sliders", "Steppers", "Switches", "Text Fields"]]
+    var listContent = [["Navigation Bars", "Search Bars", "Sidebars", "Status Bars", "Tab Bars", "Toolbars"], ["Action Sheets", "Activity Views", "Alerts", "Collections", "Image Views", "Pages", "Popovers", "Scroll Views", "Split Views", "Tables", "Text Views", "Web Views"], ["Buttons", "Color Wells", "Context Menus", "Edit Menus", "Labels", "Page Controls", "Pickers", "Progress Indicators", "Pull-Down Menus", "Refresh Content Controls", "Segmented Controls", "Sliders", "Steppers", "Switches", "Text Fields"]]
     
-    var listContent: [[Content]] = [barsContents, viewsContents, controlsContent]
+    //var listContent: [[Content]] = [barsContents, viewsContents, controlsContent]
     
-    var search = [[Content]]()
+    var search = [[String]]()
     
     @IBOutlet weak var barsCollection: UICollectionView!
     @IBOutlet weak var viewsCollection: UICollectionView!
@@ -41,17 +41,17 @@ class ViewController: UIViewController, UISearchBarDelegate, UICollectionViewDat
             search = listContent
         } else {
             for item in listContent[0] {
-                if item.name.lowercased().contains(searchText.lowercased()) {
+                if item.lowercased().contains(searchText.lowercased()) {
                     search[0].append(item)
                 }
             }
             for item in listContent[1] {
-                if item.name.lowercased().contains(searchText.lowercased()) {
+                if item.lowercased().contains(searchText.lowercased()) {
                     search[1].append(item)
                 }
             }
             for item in listContent[2] {
-                if item.name.lowercased().contains(searchText.lowercased()) {
+                if item.lowercased().contains(searchText.lowercased()) {
                     search[2].append(item)
                 }
             }
@@ -118,15 +118,15 @@ class ViewController: UIViewController, UISearchBarDelegate, UICollectionViewDat
         if let vc = storyboard?.instantiateViewController(identifier: "listOfContent") as? SwiftTableViewController {
             if collectionView == barsCollection {
                 vc.topic = 0
-                barsContents = search[0]
+                vc.content = search[0][indexPath.item]
             } else if collectionView == viewsCollection {
                 vc.topic = 1
-                viewsContents = search[1]
+                vc.content = search[1][indexPath.item]
             } else {
                 vc.topic = 2
-                controlsContent = search[2]
+                vc.content = search[2][indexPath.item]
             }
-            vc.content = indexPath.item
+            
             navigationController?.pushViewController(vc, animated: true)
         }
     }

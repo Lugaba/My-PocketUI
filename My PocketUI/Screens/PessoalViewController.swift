@@ -7,8 +7,6 @@
 
 import UIKit
 
-var pessoalContents = [Content]()
-
 class PessoalViewController: UIViewController, UISearchBarDelegate, UICollectionViewDataSource, UICollectionViewDelegate {
     let searchController = UISearchController(searchResultsController: nil)
     var search = [Content]()
@@ -18,7 +16,7 @@ class PessoalViewController: UIViewController, UISearchBarDelegate, UICollection
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        search = pessoalContents
+        loadData()
         
         title = "Pessoal"
         
@@ -35,6 +33,10 @@ class PessoalViewController: UIViewController, UISearchBarDelegate, UICollection
         // Do any additional setup after loading the view.
     }
     
+    func loadData() {
+        search = try! CoreDataStackContent.getContents()
+    }
+    
     // MARK: - Add new item function
     
     @objc func addLine() {
@@ -43,8 +45,8 @@ class PessoalViewController: UIViewController, UISearchBarDelegate, UICollection
 
         let Action = UIAlertAction(title: "Criar", style: .default) {
             [weak self, weak ac] _ in
-            guard let newContent = ac?.textFields?[0].text else {return}
-            self?.addLineCollectionView(newContent: newContent)
+            guard let name = ac?.textFields?[0].text else {return}
+            self?.addLineCollectionView(name: name)
         }
 
         ac.addAction(UIAlertAction(title: "Cancelar", style: .cancel))
@@ -55,13 +57,12 @@ class PessoalViewController: UIViewController, UISearchBarDelegate, UICollection
     
     /// Adiciona uma nova linha na TAbleView de acordo com o input do usuário, caso esteja vazio libera um alerta
     /// - Parameter newContent: String que o usuário escreveu no alerta
-    @objc func addLineCollectionView(newContent: String) {
-        if newContent.trimmingCharacters(in: .whitespacesAndNewlines) != "" {
-            pessoalContents.insert(Content.init(name: newContent), at: 0)
-            search = pessoalContents
+    @objc func addLineCollectionView(name: String) {
+        if name.trimmingCharacters(in: .whitespacesAndNewlines) != "" {
+            _ = try! CoreDataStackContent.createContent(nome: name)
+            search = try! CoreDataStackContent.getContents()
             let indexPath = IndexPath(row: 0, section: 0)
             pessoalCollection.insertItems(at: [indexPath])
-            //UserDefaults.standard.setValue(search[topic].contents[content].listUser, forKey: saveKeys[topic][content])
         } else {
             let ac = UIAlertController(title: "Nome vazio", message: "Crie um nome para a documentação da maneira correta", preferredStyle: .alert)
             ac.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
@@ -74,10 +75,10 @@ class PessoalViewController: UIViewController, UISearchBarDelegate, UICollection
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         search.removeAll()
         if searchText.isEmpty {
-            search = pessoalContents
+            search = try! CoreDataStackContent.getContents()
         } else {
-            for item in pessoalContents {
-                if item.name.lowercased().contains(searchText.lowercased()) {
+            for item in try! CoreDataStackContent.getContents() {
+                if item.nome!.lowercased().contains(searchText.lowercased()) {
                     search.append(item)
                 }
             }
@@ -88,12 +89,12 @@ class PessoalViewController: UIViewController, UISearchBarDelegate, UICollection
     /// Reinicia o filtro quando inicia a edicao da searchBar
     /// - Parameter searchBar: searchBar criada
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        search = pessoalContents
+        search = try! CoreDataStackContent.getContents()
         pessoalCollection.reloadData()
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        search = pessoalContents
+        search = try! CoreDataStackContent.getContents()
         pessoalCollection.reloadData()
     }
     
@@ -105,12 +106,22 @@ class PessoalViewController: UIViewController, UISearchBarDelegate, UICollection
         if sender.state == .began {
             let touchPoint = sender.location(in: pessoalCollection)
             if let indexPath = pessoalCollection.indexPathForItem(at: touchPoint) {
-                let ac = UIAlertController(title: "Deletar a documentação '\(pessoalContents[indexPath.row].name)'", message: nil, preferredStyle: .actionSheet)
+                let ac = UIAlertController(title: "Deletar todo o conteúdo de '\(search[indexPath.item].nome ?? "NONE")'", message: nil, preferredStyle: .actionSheet)
                 ac.addAction(UIAlertAction(title: "Confirmar", style: .destructive, handler: {
                     [weak self] action in
                     
-                    pessoalContents.remove(at: indexPath.row)
-                    self?.search = pessoalContents
+                    let documentations = try! CoreDataStackDocumentation.getDocumentations()
+                    for documentation in documentations {
+                        guard let myContentUn = documentation.myContent else {return}
+                        if myContentUn == self?.search[indexPath.item].nome {
+                            try! CoreDataStackDocumentation.deleteDocumentation(documentation: documentation)
+                        }
+                    }
+                    
+                    guard let search = self?.search else {return}
+                    
+                    try! CoreDataStackContent.deleteContent(content: search[indexPath.row])
+                    self?.search = try! CoreDataStackContent.getContents()
                     
                     self?.pessoalCollection.reloadData()
                 }))
@@ -128,7 +139,8 @@ class PessoalViewController: UIViewController, UISearchBarDelegate, UICollection
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PessoalCell", for: indexPath) as! PessoalCollectionViewCell
-        cell.name.text = search[indexPath.item].name
+        cell.name.text = search[indexPath.item].nome
+        cell.name.textColor = .black
         cell.layer.cornerRadius = 15
         return cell
     }
@@ -136,7 +148,7 @@ class PessoalViewController: UIViewController, UISearchBarDelegate, UICollection
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let vc = storyboard?.instantiateViewController(identifier: "listOfContent") as? SwiftTableViewController {
             vc.topic = 4
-            vc.content = indexPath.item
+            vc.content = search[indexPath.item].nome!
             navigationController?.pushViewController(vc, animated: true)
         }
     }

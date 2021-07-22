@@ -109,7 +109,7 @@ class ContentViewController: UIViewController {
     
     func loadText() {
         if documentacao?.information != "" {
-            elementos = documentacao.information.components(separatedBy: "\n")
+            elementos = documentacao.information!.components(separatedBy: "\n")
             for i in 0..<elementos.count {
                 let newText = elementos[i].replacingOccurrences(of: "\\n", with: "\n")
                 elementos[i] = newText
@@ -119,6 +119,7 @@ class ContentViewController: UIViewController {
     
     @objc func saveText() {
         documentacao.information = addTexto.text
+        try! CoreDataStackDocumentation.saveContext()
         loadView()
     }
     
