@@ -31,17 +31,16 @@ class WebViewController: UIViewController, WKNavigationDelegate {
         progressView.sizeToFit()
         progressView.progressTintColor = UIColor(red: 0.77, green: 0.25, blue: 0.25, alpha: 1.00)
         
-        
         let spacer = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let refresh = UIBarButtonItem(barButtonSystemItem: .refresh, target: webView, action: #selector(webView.reload))
         refresh.tintColor = UIColor(red: 0.77, green: 0.25, blue: 0.25, alpha: 1.00)
-        let backButton = UIBarButtonItem(barButtonSystemItem: .rewind, target: webView, action: #selector(webView.goBack))
+        let backButton = UIBarButtonItem(image: UIImage(systemName: "chevron.backward"), style: .done, target: webView, action: #selector(webView.goBack))
         backButton.tintColor = UIColor(red: 0.77, green: 0.25, blue: 0.25, alpha: 1.00)
-        let forwardButton = UIBarButtonItem(barButtonSystemItem: .fastForward, target: webView, action: #selector(webView.goForward))
+        let forwardButton = UIBarButtonItem(image: UIImage(systemName: "chevron.forward"), style: .done, target: webView, action: #selector(webView.goForward))
         forwardButton.tintColor = UIColor(red: 0.77, green: 0.25, blue: 0.25, alpha: 1.00)
         let progressButton = UIBarButtonItem(customView: progressView)
 
-        toolbarItems = [backButton, forwardButton, spacer ,progressButton, spacer, refresh]
+        toolbarItems = [backButton, spacer, forwardButton, spacer ,progressButton, spacer, refresh]
         navigationController?.setToolbarHidden(false, animated: false)
 
         webView.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil)

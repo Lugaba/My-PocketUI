@@ -94,14 +94,14 @@ class ViewController: UIViewController, UISearchBarDelegate, UICollectionViewDat
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == barsCollection {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "BarsCell", for: indexPath) as! BarCollectionViewCell
-            cell.imagem.image = UIImage(named: "navigation")
+            cell.imagem.image = UIImage(named: search[0][indexPath.item])
             cell.layer.cornerRadius = 15
             cell.imagem.contentMode = .scaleAspectFill
             return cell
         } else if collectionView == viewsCollection {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ViewsCell", for: indexPath) as! ViewCollectionViewCell
             cell.layer.cornerRadius = 15
-            cell.imagem.image = UIImage(named: "table")
+            cell.imagem.image = UIImage(named: search[1][indexPath.item])
             cell.imagem.contentMode = .scaleAspectFill
             return cell
         } else {
