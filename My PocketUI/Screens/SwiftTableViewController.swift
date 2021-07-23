@@ -45,15 +45,19 @@ class SwiftTableViewController: UITableViewController, UISearchBarDelegate {
     
     func loadData() {
         tableContent.removeAll()
-        if try! CoreDataStackDocumentation.getDocumentations().count == 0 {
-            tableContent.append(try! CoreDataStackDocumentation.createDocumentation(title: "Criada", information: "Criamos uma váriavel ou constante que usará o nosso vetor, nesse vetor vamos aplicar o método 'joined(separator: )' que irá juntar todo o vetor em uma string de acordo com um separador, por exemplo, eu quero juntar um vetor em uma string separando os elementos a partir de vírgula:\n/codelet minhaString = meuVetor.joined(separator: ',')\nhttps://stackoverflow.com/questions/35550966/swift-add-show-action-to-button-programmatically", isEditable: false, myContent: "Swift"))
-        } else {
-            let documentations = try! CoreDataStackDocumentation.getDocumentations()
-            for documentation in documentations {
-                guard let myContentUn = documentation.myContent else {return}
-                if myContentUn == content {
-                    tableContent.append(documentation)
+        var documentations = try! CoreDataStackDocumentation.getDocumentations()
+        if documentations.count == 0 {
+            for createContent in createData {
+                for createDoc in createContent {
+                    _ = createDoc
                 }
+            }
+        }
+        documentations = try! CoreDataStackDocumentation.getDocumentations()
+        for documentation in documentations {
+            guard let myContentUn = documentation.myContent else {return}
+            if myContentUn == content {
+                tableContent.append(documentation)
             }
         }
         search = tableContent
