@@ -53,8 +53,8 @@ class ContentViewController: UIViewController {
             
             
             for i in elementos {
-                if i.hasPrefix("/code"){
-                    let newCode = i.replacingOccurrences(of: "/code", with: "")
+                if i.hasPrefix("*/"){
+                    let newCode = i.replacingOccurrences(of: "*/", with: "")
                     let elemento = UITextView()
                     elemento.translatesAutoresizingMaskIntoConstraints = false
                     elemento.text = newCode
@@ -124,11 +124,15 @@ class ContentViewController: UIViewController {
     
     func loadText() {
         if documentacao?.information != "" {
-            elementos = documentacao.information!.components(separatedBy: "\n")
+            elementos = documentacao.information!.components(separatedBy: "/*")
             for i in 0..<elementos.count {
-                let newText = elementos[i].replacingOccurrences(of: "\\n", with: "\n")
-                elementos[i] = newText
+                let newText = elementos[i].components(separatedBy: "/btn")
+                elementos.remove(at: i)
+                for item in newText {
+                    elementos.insert(item, at: i)
+                }
             }
+            print(elementos)
         }
     }
     
