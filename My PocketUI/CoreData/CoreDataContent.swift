@@ -29,9 +29,10 @@ class CoreDataStackContent {
         }
     }
     
-    static func createContent(nome: String) throws -> Content{
+    static func createContent(nome: String, textColor: String) throws -> Content{
         guard let content = NSEntityDescription.insertNewObject(forEntityName: "Content", into: context) as? Content else {preconditionFailure()}
         content.nome = nome
+        content.textColor = textColor
         try saveContext()
         return content
     }

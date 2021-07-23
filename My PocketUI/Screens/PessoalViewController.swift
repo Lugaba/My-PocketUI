@@ -7,9 +7,13 @@
 
 import UIKit
 
+
+
 class PessoalViewController: UIViewController, UISearchBarDelegate, UICollectionViewDataSource, UICollectionViewDelegate {
     let searchController = UISearchController(searchResultsController: nil)
     var search = [Content]()
+    var colors: [UIColor] = [UIColor(red: 0.77, green: 0.25, blue: 0.25, alpha: 1.00), UIColor(red: 0.80, green: 0.00, blue: 0.00, alpha: 1.00), UIColor(red: 0.38, green: 0.66, blue: 0.85, alpha: 1.00), UIColor(red: 0.00, green: 0.28, blue: 0.75, alpha: 1.00), UIColor(red: 0.03, green: 0.24, blue: 0.36, alpha: 1.00)]
+    var contadorCor = 0
 
     @IBOutlet weak var pessoalCollection: UICollectionView!
     
@@ -51,7 +55,6 @@ class PessoalViewController: UIViewController, UISearchBarDelegate, UICollection
 
         ac.addAction(UIAlertAction(title: "Cancelar", style: .cancel))
         ac.addAction(Action)
-
         present(ac, animated: true)
     }
     
@@ -59,7 +62,7 @@ class PessoalViewController: UIViewController, UISearchBarDelegate, UICollection
     /// - Parameter newContent: String que o usuário escreveu no alerta
     @objc func addLineCollectionView(name: String) {
         if name.trimmingCharacters(in: .whitespacesAndNewlines) != "" {
-            _ = try! CoreDataStackContent.createContent(nome: name)
+            _ = try! CoreDataStackContent.createContent(nome: name, textColor: "\(Int.random(in: 0...4))")
             search = try! CoreDataStackContent.getContents()
             let indexPath = IndexPath(row: search.count-1, section: 0)
             pessoalCollection.insertItems(at: [indexPath])
@@ -139,9 +142,11 @@ class PessoalViewController: UIViewController, UISearchBarDelegate, UICollection
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PessoalCell", for: indexPath) as! PessoalCollectionViewCell
+        let cor = Int(search[indexPath.item].textColor!)
         cell.name.text = search[indexPath.item].nome
-        cell.name.textColor = .black
+        cell.name.textColor = colors[cor!]
         cell.layer.cornerRadius = 15
+        contadorCor += 1
         return cell
     }
     

@@ -17,6 +17,7 @@ extension Content {
     }
 
     @NSManaged public var nome: String?
+    @NSManaged public var textColor: String?
 
 }
 

@@ -107,7 +107,7 @@ class ViewController: UIViewController, UISearchBarDelegate, UICollectionViewDat
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ControlCell", for: indexPath) as! ControlCollectionViewCell
             cell.layer.cornerRadius = 15
-            cell.imagem.image = UIImage(named: "button")
+            cell.imagem.image = UIImage(named: search[2][indexPath.item])
             cell.imagem.contentMode = .scaleAspectFill
             return cell
         }

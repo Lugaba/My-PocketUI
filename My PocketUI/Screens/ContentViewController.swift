@@ -34,7 +34,7 @@ class ContentViewController: UIViewController {
         } else {
             let shareButton = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareContent))
             if documentacao.isEditable == true {
-                let editButton = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editText))
+                let editButton = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(editText))
                 navigationItem.rightBarButtonItems = [shareButton, editButton]
             } else {
                 navigationItem.rightBarButtonItems = [shareButton]
@@ -53,8 +53,8 @@ class ContentViewController: UIViewController {
             
             
             for i in elementos {
-                if i.hasPrefix("*||*"){
-                    let newCode = i.replacingOccurrences(of: "*||*", with: "")
+                if i.hasPrefix("/code"){
+                    let newCode = i.replacingOccurrences(of: "/code", with: "")
                     let elemento = UITextView()
                     elemento.translatesAutoresizingMaskIntoConstraints = false
                     elemento.text = newCode
@@ -65,7 +65,17 @@ class ContentViewController: UIViewController {
                     elemento.isScrollEnabled = false
                     scrollView.addSubview(elemento)
                     views.append(elemento)
-                } else {
+                } else if i.hasPrefix("https") || i.hasPrefix("Https"){
+                    let elemento = UIButton()
+                    elemento.translatesAutoresizingMaskIntoConstraints = false
+                    elemento.setTitle(i, for: .normal)
+                    elemento.titleLabel?.font = .systemFont(ofSize: 12)
+                    elemento.titleLabel?.numberOfLines = 0
+                    elemento.setTitleColor(UIColor(red: 0.00, green: 0.28, blue: 0.75, alpha: 1.00), for: .normal)
+                    elemento.addTarget(self, action: #selector(openWeb), for: .touchUpInside)
+                    scrollView.addSubview(elemento)
+                    views.append(elemento)
+                }else {
                     let elemento = UILabel()
                     elemento.translatesAutoresizingMaskIntoConstraints = false
                     elemento.text = i
@@ -91,7 +101,7 @@ class ContentViewController: UIViewController {
                         views[i].leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 20),
                         views[i].trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
                         views[i].bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -16.0)
-
+                        
                     ])
                 }else {
                     NSLayoutConstraint.activate([
@@ -145,6 +155,7 @@ class ContentViewController: UIViewController {
         addTexto.textColor = .black
         addTexto.backgroundColor = UIColor(red: 0.96, green: 0.96, blue: 0.96, alpha: 1.00)
         addTexto.text = documentacao.information
+        addTexto.autocapitalizationType = .none
         view.addSubview(addTexto)
         
         NSLayoutConstraint.activate([
@@ -164,6 +175,15 @@ class ContentViewController: UIViewController {
         let vc = UIActivityViewController(activityItems: elementos, applicationActivities: [])
         vc.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
         present(vc, animated: true)
+    }
+    
+    @objc func openWeb(sender: UIButton!){
+        if let vc = storyboard?.instantiateViewController(identifier: "Web") as? WebViewController {
+            if let site = sender.titleLabel?.text {
+                vc.urlString = site
+            }
+            navigationController?.pushViewController(vc, animated: true)
+        }
     }
     
     

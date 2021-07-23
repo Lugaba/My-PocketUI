@@ -2,6 +2,7 @@
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="18154" systemVersion="20F71" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Content" representedClassName="Content" syncable="YES">
         <attribute name="nome" optional="YES" attributeType="String"/>
+        <attribute name="textColor" optional="YES" attributeType="String"/>
     </entity>
     <entity name="Documentation" representedClassName="Documentation" syncable="YES">
         <attribute name="information" optional="YES" attributeType="String"/>
@@ -10,7 +11,7 @@
         <attribute name="title" optional="YES" attributeType="String"/>
     </entity>
     <elements>
+        <element name="Content" positionX="-54" positionY="18" width="128" height="59"/>
         <element name="Documentation" positionX="-63" positionY="-18" width="128" height="89"/>
-        <element name="Content" positionX="-54" positionY="18" width="128" height="44"/>
     </elements>
 </model>

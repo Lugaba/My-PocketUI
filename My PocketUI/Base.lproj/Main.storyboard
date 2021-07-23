@@ -17,7 +17,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Zev-5A-v7R">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Zev-5A-v7R">
                                 <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <color key="backgroundColor" name="bgColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="ixl-Qx-eOa">
@@ -152,7 +152,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NJR-m9-kEA">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="800"/>
                                         <subviews>
-                                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="nw0-tI-E7a">
+                                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="nw0-tI-E7a">
                                                 <rect key="frame" x="0.0" y="86" width="414" height="120"/>
                                                 <color key="backgroundColor" name="bgColor"/>
                                                 <constraints>
@@ -211,7 +211,7 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="mqF-u6-7FZ">
+                                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="mqF-u6-7FZ">
                                                 <rect key="frame" x="0.0" y="292" width="414" height="216"/>
                                                 <color key="backgroundColor" name="bgColor"/>
                                                 <constraints>
@@ -263,7 +263,7 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Jw7-Qa-xPJ">
+                                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Jw7-Qa-xPJ">
                                                 <rect key="frame" x="0.0" y="594" width="414" height="154"/>
                                                 <color key="backgroundColor" name="bgColor"/>
                                                 <constraints>
@@ -412,7 +412,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="kNl-ov-C70">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="kNl-ov-C70">
                                 <rect key="frame" x="20" y="88" width="374" height="725"/>
                                 <color key="backgroundColor" name="bgColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="fhy-rW-2Dn">
@@ -430,24 +430,22 @@
                                             <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p1x-Hg-ht7">
-                                                    <rect key="frame" x="0.0" y="65" width="150" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p1x-Hg-ht7">
+                                                    <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="150" id="3gr-yZ-DAc"/>
-                                                        <constraint firstAttribute="height" constant="21" id="os5-Wl-OjU"/>
+                                                        <constraint firstAttribute="height" constant="150" id="rE4-hU-DEV"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="p1x-Hg-ht7" secondAttribute="trailing" id="6aE-k7-omj"/>
                                                 <constraint firstAttribute="trailing" secondItem="p1x-Hg-ht7" secondAttribute="trailing" id="7RL-id-oFl"/>
-                                                <constraint firstAttribute="bottom" secondItem="p1x-Hg-ht7" secondAttribute="bottom" constant="64" id="AcX-IY-fEV"/>
-                                                <constraint firstItem="p1x-Hg-ht7" firstAttribute="leading" secondItem="C2N-pY-fzz" secondAttribute="leading" id="TY7-sj-Whn"/>
+                                                <constraint firstAttribute="bottom" secondItem="p1x-Hg-ht7" secondAttribute="bottom" id="9Ow-Eg-8Kb"/>
                                                 <constraint firstItem="p1x-Hg-ht7" firstAttribute="leading" secondItem="C2N-pY-fzz" secondAttribute="leading" id="UrQ-9S-lqe"/>
-                                                <constraint firstItem="p1x-Hg-ht7" firstAttribute="top" secondItem="C2N-pY-fzz" secondAttribute="top" constant="65" id="xg5-Xi-4ss"/>
+                                                <constraint firstItem="p1x-Hg-ht7" firstAttribute="top" secondItem="C2N-pY-fzz" secondAttribute="top" id="c0w-Ol-tC6"/>
                                             </constraints>
                                         </collectionViewCellContentView>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
