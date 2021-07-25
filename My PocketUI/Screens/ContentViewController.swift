@@ -53,38 +53,40 @@ class ContentViewController: UIViewController {
             
             
             for i in elementos {
-                if i.hasPrefix("*/"){
-                    let newCode = i.replacingOccurrences(of: "*/", with: "")
-                    let elemento = UITextView()
-                    elemento.translatesAutoresizingMaskIntoConstraints = false
-                    elemento.text = newCode
-                    elemento.textColor = .black
-                    elemento.backgroundColor = .lightGray
-                    elemento.layer.cornerRadius = 10
-                    elemento.isEditable = false
-                    elemento.isScrollEnabled = false
-                    scrollView.addSubview(elemento)
-                    views.append(elemento)
-                } else if i.hasPrefix("https") || i.hasPrefix("Https"){
-                    let elemento = UIButton()
-                    elemento.translatesAutoresizingMaskIntoConstraints = false
-                    elemento.setTitle(i, for: .normal)
-                    elemento.titleLabel?.font = .systemFont(ofSize: 12)
-                    elemento.titleLabel?.numberOfLines = 0
-                    elemento.setTitleColor(UIColor(red: 0.00, green: 0.28, blue: 0.75, alpha: 1.00), for: .normal)
-                    elemento.addTarget(self, action: #selector(openWeb), for: .touchUpInside)
-                    scrollView.addSubview(elemento)
-                    views.append(elemento)
-                }else {
-                    let elemento = UILabel()
-                    elemento.translatesAutoresizingMaskIntoConstraints = false
-                    elemento.text = i
-                    elemento.numberOfLines = 0
-                    elemento.textColor = .black
-                    scrollView.addSubview(elemento)
-                    views.append(elemento)
-                    
+                if i.trimmingCharacters(in: .whitespacesAndNewlines) != "" {
+                    if i.hasPrefix("*/"){
+                        let newCode = i.replacingOccurrences(of: "*/", with: "")
+                        let elemento = UITextView()
+                        elemento.translatesAutoresizingMaskIntoConstraints = false
+                        elemento.attributedText = formatCode(code: newCode)
+                        elemento.backgroundColor = .lightGray
+                        elemento.layer.cornerRadius = 10
+                        elemento.isEditable = false
+                        elemento.isScrollEnabled = false
+                        scrollView.addSubview(elemento)
+                        views.append(elemento)
+                    } else if i.hasPrefix("https") || i.hasPrefix("Https"){
+                        let elemento = UIButton()
+                        elemento.translatesAutoresizingMaskIntoConstraints = false
+                        elemento.setTitle(i, for: .normal)
+                        elemento.titleLabel?.font = .systemFont(ofSize: 12)
+                        elemento.titleLabel?.numberOfLines = 0
+                        elemento.setTitleColor(UIColor(red: 0.00, green: 0.28, blue: 0.75, alpha: 1.00), for: .normal)
+                        elemento.addTarget(self, action: #selector(openWeb), for: .touchUpInside)
+                        scrollView.addSubview(elemento)
+                        views.append(elemento)
+                    } else {
+                        let elemento = UILabel()
+                        elemento.translatesAutoresizingMaskIntoConstraints = false
+                        elemento.text = i
+                        elemento.numberOfLines = 0
+                        elemento.textColor = .black
+                        scrollView.addSubview(elemento)
+                        views.append(elemento)
+                        
+                    }
                 }
+                
             }
             
             for i in 0..<views.count {
@@ -97,15 +99,15 @@ class ContentViewController: UIViewController {
                     ])
                 } else if i == views.count-1 {
                     NSLayoutConstraint.activate([
-                        views[i].topAnchor.constraint(equalTo: views[i-1].bottomAnchor, constant: 20),
+                        views[i].topAnchor.constraint(equalTo: views[i-1].bottomAnchor, constant: 10),
                         views[i].leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 20),
                         views[i].trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
                         views[i].bottomAnchor.constraint(equalTo: scrollView.bottomAnchor, constant: -16.0)
                         
                     ])
-                }else {
+                } else {
                     NSLayoutConstraint.activate([
-                        views[i].topAnchor.constraint(equalTo: views[i-1].bottomAnchor, constant: 20),
+                        views[i].topAnchor.constraint(equalTo: views[i-1].bottomAnchor, constant: 10),
                         views[i].leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 20),
                         views[i].trailingAnchor.constraint(equalTo: scrollView.trailingAnchor)
                     ])
@@ -122,19 +124,25 @@ class ContentViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.setToolbarHidden(true, animated: false)
+    }
+    
     func loadText() {
         if documentacao?.information != "" {
             elementos = documentacao.information!.components(separatedBy: "/*")
             for i in 0..<elementos.count {
                 let newText = elementos[i].components(separatedBy: "/btn")
                 elementos.remove(at: i)
-                for item in newText {
-                    elementos.insert(item, at: i)
+                for item in 0..<newText.count {
+                    elementos.insert(newText[item], at: i+item)
                 }
             }
-            print(elementos)
         }
     }
+    
+    // MARK: - Edit content functions
+
     
     @objc func saveText() {
         documentacao.information = addTexto.text
@@ -175,12 +183,18 @@ class ContentViewController: UIViewController {
         loadView()
     }
     
+    // MARK: - Share
+    
     @objc func shareContent() {
         let vc = UIActivityViewController(activityItems: elementos, applicationActivities: [])
         vc.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
         present(vc, animated: true)
     }
     
+    // MARK: - Web
+    
+    /// Recebe a identificao do botao que foi acionado e abre a página web com a url do botao
+    /// - Parameter sender: botao acionado
     @objc func openWeb(sender: UIButton!){
         if let vc = storyboard?.instantiateViewController(identifier: "Web") as? WebViewController {
             if let site = sender.titleLabel?.text {
@@ -190,16 +204,43 @@ class ContentViewController: UIViewController {
         }
     }
     
+    // MARK: - Format Code
     
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
-}
+    func formatCode(code: String) -> NSMutableAttributedString {
+        let palavrasVermelhas = ["var", "let ", "class", "return", "_", "func", "for ", "override", "if ", " in ", "try", "@objc", "self", "true", "false", "else", "import"]
+        let palavrasAzuis = ["UIViewController", "UITableViewController", "UITableView", " Int", "IndexPath", "UITableViewCell"]
+        let range = NSRange(location: 0, length: code.utf16.count)
+        let mutableAttributedString = NSMutableAttributedString.init(string: code)
+        
+        for word in palavrasVermelhas {
+            let regex = try? NSRegularExpression(pattern: word)
+            for rangeVar in regex!.matches(in: code, range: range) {
+                mutableAttributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor(red: 0.80, green: 0.00, blue: 0.00, alpha: 1.00), range: rangeVar.range)
+            }
+        }
+        
+        for word in palavrasAzuis {
+            let regex = try? NSRegularExpression(pattern: word)
+            for rangeVar in regex!.matches(in: code, range: range) {
+                mutableAttributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor(red: 0.00, green: 0.28, blue: 0.75, alpha: 1.00), range: rangeVar.range)
+            }
+        }
+            
+            
+            
+        return mutableAttributedString
+        }
+        
+        
+        
+        /*
+         // MARK: - Navigation
+         
+         // In a storyboard-based application, you will often want to do a little preparation before navigation
+         override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+         // Get the new view controller using segue.destination.
+         // Pass the selected object to the new view controller.
+         }
+         */
+        
+    }
