@@ -31,14 +31,14 @@
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="LinkCell" id="e8D-AZ-dR9" customClass="ResourceCollectionViewCell" customModule="My_PocketUI" customModuleProvider="target">
                                         <rect key="frame" x="39.5" y="0.0" width="335" height="70"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="dP5-ll-Isr">
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="wUK-WN-kV9">
                                             <rect key="frame" x="0.0" y="0.0" width="335" height="70"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Te9-zU-Tzz">
                                                     <rect key="frame" x="70" y="37" width="265" height="21"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="265" id="Evl-vP-o7p"/>
+                                                        <constraint firstAttribute="width" constant="265" id="Q8K-Q0-s3v"/>
                                                         <constraint firstAttribute="height" constant="21" id="ofU-0Q-Fkz"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -56,7 +56,7 @@
                                                     <rect key="frame" x="70" y="8" width="265" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="Q5p-7S-7Bo"/>
-                                                        <constraint firstAttribute="width" constant="265" id="vAd-vl-ta0"/>
+                                                        <constraint firstAttribute="width" constant="265" id="aHP-mN-BfO"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -67,10 +67,10 @@
                                                 <constraint firstItem="iPz-Gz-EOm" firstAttribute="leading" secondItem="in6-5M-KDi" secondAttribute="trailing" constant="10" id="6ED-0J-eSv"/>
                                                 <constraint firstAttribute="trailing" secondItem="iPz-Gz-EOm" secondAttribute="trailing" id="BXE-6C-CNi"/>
                                                 <constraint firstAttribute="bottom" secondItem="Te9-zU-Tzz" secondAttribute="bottom" constant="12" id="Evc-S2-TRr"/>
-                                                <constraint firstItem="in6-5M-KDi" firstAttribute="leading" secondItem="dP5-ll-Isr" secondAttribute="leading" id="Hg0-5B-6Ic"/>
-                                                <constraint firstItem="in6-5M-KDi" firstAttribute="top" secondItem="dP5-ll-Isr" secondAttribute="top" id="N76-jc-MfR"/>
+                                                <constraint firstItem="in6-5M-KDi" firstAttribute="leading" secondItem="wUK-WN-kV9" secondAttribute="leading" id="Hg0-5B-6Ic"/>
+                                                <constraint firstItem="in6-5M-KDi" firstAttribute="top" secondItem="wUK-WN-kV9" secondAttribute="top" id="N76-jc-MfR"/>
                                                 <constraint firstItem="Te9-zU-Tzz" firstAttribute="top" secondItem="iPz-Gz-EOm" secondAttribute="bottom" constant="8" id="Tzj-9m-05k"/>
-                                                <constraint firstItem="iPz-Gz-EOm" firstAttribute="top" secondItem="dP5-ll-Isr" secondAttribute="top" constant="8" id="rh7-wi-t3O"/>
+                                                <constraint firstItem="iPz-Gz-EOm" firstAttribute="top" secondItem="wUK-WN-kV9" secondAttribute="top" constant="8" id="rh7-wi-t3O"/>
                                                 <constraint firstItem="Te9-zU-Tzz" firstAttribute="leading" secondItem="in6-5M-KDi" secondAttribute="trailing" constant="10" id="tZK-7y-Kbs"/>
                                                 <constraint firstAttribute="bottom" secondItem="in6-5M-KDi" secondAttribute="bottom" id="xnf-fV-qs0"/>
                                                 <constraint firstAttribute="trailing" secondItem="Te9-zU-Tzz" secondAttribute="trailing" id="zfa-Q0-kXn"/>

@@ -71,7 +71,7 @@ class ContentViewController: UIViewController {
                         elemento.setTitle(i, for: .normal)
                         elemento.titleLabel?.font = .systemFont(ofSize: 12)
                         elemento.titleLabel?.numberOfLines = 0
-                        elemento.setTitleColor(UIColor(red: 0.00, green: 0.28, blue: 0.75, alpha: 1.00), for: .normal)
+                        elemento.setTitleColor(UIColor(red: 0.77, green: 0.25, blue: 0.25, alpha: 1.00), for: .normal)
                         elemento.addTarget(self, action: #selector(openWeb), for: .touchUpInside)
                         scrollView.addSubview(elemento)
                         views.append(elemento)
@@ -92,7 +92,7 @@ class ContentViewController: UIViewController {
             for i in 0..<views.count {
                 if i == 0 {
                     NSLayoutConstraint.activate([
-                        views[i].widthAnchor.constraint(equalToConstant: 338),
+                        views[i].widthAnchor.constraint(equalTo: view.layoutMarginsGuide.widthAnchor),
                         views[i].topAnchor.constraint(equalTo: scrollView.topAnchor, constant: 20),
                         views[i].leadingAnchor.constraint(equalTo: scrollView.leadingAnchor, constant: 20),
                         views[i].trailingAnchor.constraint(equalTo: scrollView.trailingAnchor)
@@ -163,6 +163,7 @@ class ContentViewController: UIViewController {
         navigationItem.rightBarButtonItems = [saveButton, cancelButton]
         
         
+        
         addTexto.translatesAutoresizingMaskIntoConstraints = false
         addTexto.textColor = .black
         addTexto.backgroundColor = UIColor(red: 0.96, green: 0.96, blue: 0.96, alpha: 1.00)
@@ -225,22 +226,8 @@ class ContentViewController: UIViewController {
                 mutableAttributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor(red: 0.00, green: 0.28, blue: 0.75, alpha: 1.00), range: rangeVar.range)
             }
         }
-            
-            
-            
+
         return mutableAttributedString
         }
-        
-        
-        
-        /*
-         // MARK: - Navigation
-         
-         // In a storyboard-based application, you will often want to do a little preparation before navigation
-         override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-         // Get the new view controller using segue.destination.
-         // Pass the selected object to the new view controller.
-         }
-         */
         
     }
