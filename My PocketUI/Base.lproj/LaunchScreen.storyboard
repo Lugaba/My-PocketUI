@@ -16,22 +16,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lauchIcon" translatesAutoresizingMaskIntoConstraints="NO" id="HNs-9k-VKe">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="lauchIcon" translatesAutoresizingMaskIntoConstraints="NO" id="HNs-9k-VKe">
                                 <rect key="frame" x="87" y="328" width="240" height="240"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="240" id="UX3-MA-u5O"/>
-                                    <constraint firstAttribute="height" constant="240" id="V0E-Rn-BJL"/>
-                                </constraints>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="HNs-9k-VKe" secondAttribute="bottom" constant="294" id="AGq-20-LU3"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="HNs-9k-VKe" secondAttribute="trailing" constant="87" id="jje-wW-xYi"/>
-                            <constraint firstItem="HNs-9k-VKe" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="284" id="wIo-Sy-DeK"/>
-                            <constraint firstItem="HNs-9k-VKe" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="87" id="zxo-o7-2AW"/>
-                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -29,18 +29,19 @@ class ContentViewController: UIViewController {
         
         title = documentacao.title
         
-        if elementos.isEmpty{
-            editText()
+        navigationItem.leftBarButtonItems = []
+        
+        let shareButton = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareContent))
+        if documentacao.isEditable == true {
+            let editButton = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(editText))
+            navigationItem.rightBarButtonItems = [shareButton, editButton]
         } else {
-            let shareButton = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareContent))
-            if documentacao.isEditable == true {
-                let editButton = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(editText))
-                navigationItem.rightBarButtonItems = [shareButton, editButton]
-            } else {
-                navigationItem.rightBarButtonItems = [shareButton]
-            }
-            
-            
+            navigationItem.rightBarButtonItems = [shareButton]
+        }
+        
+        
+        
+        if !elementos.isEmpty {
             
             // add the scroll view to self.view
             self.view.addSubview(scrollView)
@@ -113,6 +114,7 @@ class ContentViewController: UIViewController {
                     ])
                 }
             }
+            
         }
         
     }
@@ -142,9 +144,12 @@ class ContentViewController: UIViewController {
     }
     
     // MARK: - Edit content functions
-
+    
     
     @objc func saveText() {
+        if addTexto.text == ""{
+            elementos.removeAll()
+        }
         documentacao.information = addTexto.text
         try! CoreDataStackDocumentation.saveContext()
         loadView()
@@ -157,11 +162,14 @@ class ContentViewController: UIViewController {
         }
         views.removeAll()
         
+        let infoButton = UIBarButtonItem(image: UIImage(systemName: "questionmark.circle"), style: .plain, target: self, action: #selector(infoMarkups))
+        
+        
         let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelEdit))
         let saveButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveText))
         saveButton.tintColor = UIColor(red: 0.38, green: 0.66, blue: 0.85, alpha: 1.00)
-        navigationItem.rightBarButtonItems = [saveButton, cancelButton]
-        
+        navigationItem.rightBarButtonItems = [saveButton]
+        navigationItem.leftBarButtonItems = [cancelButton, infoButton]
         
         
         addTexto.translatesAutoresizingMaskIntoConstraints = false
@@ -208,8 +216,8 @@ class ContentViewController: UIViewController {
     // MARK: - Format Code
     
     func formatCode(code: String) -> NSMutableAttributedString {
-        let palavrasVermelhas = ["var", "let ", "class", "return", "_", "func", "for ", "override", "if ", " in ", "try", "@objc", "self", "true", "false", "else", "import"]
-        let palavrasAzuis = ["UIViewController", "UITableViewController", "UITableView", " Int", "IndexPath", "UITableViewCell"]
+        let palavrasVermelhas = ["var", "let ", "class", "return", "_", "func", "for ", "override", "if ", " in ", "try", "@objc", "self", "true", "false", "else", "import", "nil"]
+        let palavrasAzuis = ["UIViewController", "UITableViewController", "UITableView", " Int", "IndexPath", "UITableViewCell", "UISearchBar", " String"]
         let range = NSRange(location: 0, length: code.utf16.count)
         let mutableAttributedString = NSMutableAttributedString.init(string: code)
         
@@ -226,8 +234,14 @@ class ContentViewController: UIViewController {
                 mutableAttributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor(red: 0.00, green: 0.28, blue: 0.75, alpha: 1.00), range: rangeVar.range)
             }
         }
-
-        return mutableAttributedString
-        }
         
+        return mutableAttributedString
     }
+    
+    @objc func infoMarkups() {
+        if let vc = storyboard?.instantiateViewController(identifier: "markupscreen") as? InfoViewController {
+            navigationController?.present(vc, animated: true)
+        }
+    }
+    
+}

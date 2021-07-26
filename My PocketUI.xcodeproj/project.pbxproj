@@ -17,6 +17,7 @@
 		DF7056C026A9E90600044DB0 /* Content+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7056BE26A9E90600044DB0 /* Content+CoreDataClass.swift */; };
 		DF7056C126A9E90600044DB0 /* Content+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7056BF26A9E90600044DB0 /* Content+CoreDataProperties.swift */; };
 		DF7056C326A9E91300044DB0 /* CoreDataContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7056C226A9E91300044DB0 /* CoreDataContent.swift */; };
+		DF7056C726AF544500044DB0 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7056C626AF544500044DB0 /* InfoViewController.swift */; };
 		DF7FEA2726A83F0E00D47382 /* PessoalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7FEA2626A83F0E00D47382 /* PessoalViewController.swift */; };
 		DF7FEA2926A83FFE00D47382 /* PessoalCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7FEA2826A83FFE00D47382 /* PessoalCollectionViewCell.swift */; };
 		DFA4EE9F26A75667001E7EF1 /* classStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA4EE9E26A75667001E7EF1 /* classStruct.swift */; };
@@ -45,6 +46,7 @@
 		DF7056BE26A9E90600044DB0 /* Content+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Content+CoreDataClass.swift"; sourceTree = "<group>"; };
 		DF7056BF26A9E90600044DB0 /* Content+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Content+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		DF7056C226A9E91300044DB0 /* CoreDataContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataContent.swift; sourceTree = "<group>"; };
+		DF7056C626AF544500044DB0 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		DF7FEA2626A83F0E00D47382 /* PessoalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PessoalViewController.swift; sourceTree = "<group>"; };
 		DF7FEA2826A83FFE00D47382 /* PessoalCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PessoalCollectionViewCell.swift; sourceTree = "<group>"; };
 		DFA4EE9E26A75667001E7EF1 /* classStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = classStruct.swift; sourceTree = "<group>"; };
@@ -84,6 +86,7 @@
 				DFD4ED3426A5C129004E46B7 /* AprenderViewController.swift */,
 				DF7FEA2626A83F0E00D47382 /* PessoalViewController.swift */,
 				DF4ED35C26A89FC800CBB765 /* ContentViewController.swift */,
+				DF7056C626AF544500044DB0 /* InfoViewController.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -240,6 +243,7 @@
 				DFD4ED3926A5C48D004E46B7 /* ResourceCollectionViewCell.swift in Sources */,
 				DF1F093326A735A000E23166 /* globalData.swift in Sources */,
 				DFD4ECFE26A4BA94004E46B7 /* SceneDelegate.swift in Sources */,
+				DF7056C726AF544500044DB0 /* InfoViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -393,6 +397,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "lucaHummel.My-PocketUI";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -412,6 +417,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "lucaHummel.My-PocketUI";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

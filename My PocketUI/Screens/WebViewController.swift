@@ -65,6 +65,10 @@ class WebViewController: UIViewController, WKNavigationDelegate {
         present(vc, animated: true)
     }
     
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        title = webView.title
+    }
+    
 
     /*
     // MARK: - Navigation
