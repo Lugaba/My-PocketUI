@@ -609,10 +609,10 @@
                         <color key="selectedImageTintColor" red="0.76862745099999996" green="0.25490196079999999" blue="0.25490196079999999" alpha="1" colorSpace="deviceRGB"/>
                     </tabBar>
                     <connections>
-                        <segue destination="4m8-6f-T6s" kind="relationship" relationship="viewControllers" id="SYm-JN-HQ7"/>
-                        <segue destination="FcP-9w-iG2" kind="relationship" relationship="viewControllers" id="nTo-ee-0IY"/>
-                        <segue destination="nw3-Y7-p5A" kind="relationship" relationship="viewControllers" id="9ik-LS-ZQO"/>
-                        <segue destination="YZ7-9l-gdS" kind="relationship" relationship="viewControllers" id="GLQ-4u-RC0"/>
+                        <segue destination="FcP-9w-iG2" kind="relationship" relationship="viewControllers" id="VdN-bL-iTn"/>
+                        <segue destination="nw3-Y7-p5A" kind="relationship" relationship="viewControllers" id="but-z8-iqT"/>
+                        <segue destination="YZ7-9l-gdS" kind="relationship" relationship="viewControllers" id="IYy-gV-e5G"/>
+                        <segue destination="4m8-6f-T6s" kind="relationship" relationship="viewControllers" id="oB5-ql-Lq5"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3SJ-J9-Dod" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

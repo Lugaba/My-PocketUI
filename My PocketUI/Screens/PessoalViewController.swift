@@ -44,7 +44,7 @@ class PessoalViewController: UIViewController, UISearchBarDelegate, UICollection
     // MARK: - Add new item function
     
     @objc func addLine() {
-        let ac = UIAlertController(title: "Adicionar nova documentação", message: nil, preferredStyle: .alert)
+        let ac = UIAlertController(title: "Adicionar novo conteúdo", message: nil, preferredStyle: .alert)
         ac.addTextField()
 
         let Action = UIAlertAction(title: "Criar", style: .default) {
@@ -67,7 +67,7 @@ class PessoalViewController: UIViewController, UISearchBarDelegate, UICollection
             let indexPath = IndexPath(row: search.count-1, section: 0)
             pessoalCollection.insertItems(at: [indexPath])
         } else {
-            let ac = UIAlertController(title: "Nome vazio", message: "Crie um nome para a documentação da maneira correta", preferredStyle: .alert)
+            let ac = UIAlertController(title: "Nome vazio", message: "Crie um nome para o conteúdo da maneira correta", preferredStyle: .alert)
             ac.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             present(ac, animated: true)
         }

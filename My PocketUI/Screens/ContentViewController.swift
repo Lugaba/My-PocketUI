@@ -217,7 +217,7 @@ class ContentViewController: UIViewController {
     
     func formatCode(code: String) -> NSMutableAttributedString {
         let palavrasVermelhas = ["var", "let ", "class", "return", "_", "func", "for ", "override", "if ", " in ", "try", "@objc", "self", "true", "false", "else", "import", "nil"]
-        let palavrasAzuis = ["UIViewController", "UITableViewController", "UITableView", " Int", "IndexPath", "UITableViewCell", "UISearchBar", " String"]
+        let palavrasAzuis = ["UIViewController", "UITableViewController", "UITableView", " Int", "IndexPath", "UITableViewCell", "UISearchBar", " String", "UICollectionViewDataSource", "UICollectionViewDelegate"]
         let range = NSRange(location: 0, length: code.utf16.count)
         let mutableAttributedString = NSMutableAttributedString.init(string: code)
         
