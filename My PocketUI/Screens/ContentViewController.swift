@@ -60,7 +60,7 @@ class ContentViewController: UIViewController {
                         let elemento = UITextView()
                         elemento.translatesAutoresizingMaskIntoConstraints = false
                         elemento.attributedText = formatCode(code: newCode)
-                        elemento.backgroundColor = .lightGray
+                        elemento.backgroundColor = UIColor(red: 0.83, green: 0.83, blue: 0.83, alpha: 1.00)
                         elemento.layer.cornerRadius = 10
                         elemento.isEditable = false
                         elemento.isScrollEnabled = false
