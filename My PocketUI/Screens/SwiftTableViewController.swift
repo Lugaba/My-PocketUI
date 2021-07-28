@@ -18,9 +18,9 @@ class SwiftTableViewController: UITableViewController, UISearchBarDelegate {
     var content: String = "Swift"
     
     var load = false
-
     
-
+    
+    
     // MARK: - viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,8 +28,8 @@ class SwiftTableViewController: UITableViewController, UISearchBarDelegate {
         loadData()
         
         //for i in try! CoreDataStackDocumentation.getDocumentations() {
-            //print(i.title)
-            //try! CoreDataStackDocumentation.deleteDocumentation(documentation: i)
+        //print(i.title)
+        //try! CoreDataStackDocumentation.deleteDocumentation(documentation: i)
         //}
         
         title = content
@@ -47,7 +47,7 @@ class SwiftTableViewController: UITableViewController, UISearchBarDelegate {
     
     func loadData() {
         tableContent.removeAll()
-
+        
         for documentation in try! CoreDataStackDocumentation.getDocumentations() {
             guard let myContentUn = documentation.myContent else {return}
             if myContentUn == content {
@@ -62,16 +62,16 @@ class SwiftTableViewController: UITableViewController, UISearchBarDelegate {
     @objc func addLine() {
         let ac = UIAlertController(title: "Adicionar nova documentação", message: nil, preferredStyle: .alert)
         ac.addTextField()
-
+        
         let Action = UIAlertAction(title: "Criar", style: .default) {
             [weak self, weak ac] _ in
             guard let newDocumentationTitle = ac?.textFields?[0].text else {return}
             self?.addLineTableView(newDocumentationTitle: newDocumentationTitle)
         }
-
+        
         ac.addAction(UIAlertAction(title: "Cancelar", style: .cancel))
         ac.addAction(Action)
-
+        
         present(ac, animated: true)
     }
     
@@ -106,14 +106,14 @@ class SwiftTableViewController: UITableViewController, UISearchBarDelegate {
         }
         tableView.reloadData()
     }
-
+    
     /// Reinicia o filtro quando inicia a edicao da searchBar
     /// - Parameter searchBar: searchBar criada
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         search = tableContent
         tableView.reloadData()
     }
-
+    
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         search = tableContent
         tableView.reloadData()
@@ -175,5 +175,33 @@ class SwiftTableViewController: UITableViewController, UISearchBarDelegate {
             navigationController?.pushViewController(vc, animated: true)
         }
     }
-
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if search[indexPath.row].isEditable == true {
+            if editingStyle == UITableViewCell.EditingStyle.delete {
+                
+                
+                try! CoreDataStackDocumentation.deleteDocumentation(documentation: search[indexPath.row])
+                
+                for i in 0..<tableContent.count {
+                    if tableContent[i] == search[indexPath.row] {
+                        tableContent.remove(at: i)
+                    }
+                }
+                
+                search = tableContent
+                
+                tableView.reloadData()
+            }
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        if search[indexPath.row].isEditable == false {
+            return UITableViewCell.EditingStyle.none
+        } else {
+            return UITableViewCell.EditingStyle.delete
+        }
+    }
+    
 }
