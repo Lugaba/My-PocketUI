@@ -195,7 +195,19 @@ class ContentViewController: UIViewController {
     // MARK: - Share
     
     @objc func shareContent() {
-        let vc = UIActivityViewController(activityItems: elementos, applicationActivities: [])
+        var compartilhar = [String]()
+        for texto in elementos {
+            if texto.hasPrefix("*/") {
+                var newTexto = texto.replacingOccurrences(of: "*/", with: "")
+                newTexto += "\n"
+                compartilhar.append(newTexto)
+            } else {
+                let newTexto = texto + "\n"
+                compartilhar.append(newTexto)
+            }
+        }
+                
+        let vc = UIActivityViewController(activityItems: compartilhar, applicationActivities: [])
         vc.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
         present(vc, animated: true)
     }

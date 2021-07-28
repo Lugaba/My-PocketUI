@@ -14,6 +14,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        // Crio a documentacao fixa -> tive que fazer isso para que atualize as infos sem precisar deletar e baixar novamente o app, eu deleto o antigo e crio toda vez que o app é inicializado com as possiveis mudanças
+        for documentation in try! CoreDataStackDocumentation.getDocumentations() {
+            if documentation.isEditable == false {
+                try! CoreDataStackDocumentation.deleteDocumentation(documentation: documentation)
+            }
+        }
+        for createContent in createData {
+            for createDoc in createContent {
+                _ = createDoc
+            }
+        }
+        
         return true
     }
 

@@ -16,6 +16,8 @@ class SwiftTableViewController: UITableViewController, UISearchBarDelegate {
     var search = [Documentation]()
     
     var content: String = "Swift"
+    
+    var load = false
 
     
 
@@ -45,16 +47,8 @@ class SwiftTableViewController: UITableViewController, UISearchBarDelegate {
     
     func loadData() {
         tableContent.removeAll()
-        var documentations = try! CoreDataStackDocumentation.getDocumentations()
-        if documentations.count == 0 {
-            for createContent in createData {
-                for createDoc in createContent {
-                    _ = createDoc
-                }
-            }
-        }
-        documentations = try! CoreDataStackDocumentation.getDocumentations()
-        for documentation in documentations {
+
+        for documentation in try! CoreDataStackDocumentation.getDocumentations() {
             guard let myContentUn = documentation.myContent else {return}
             if myContentUn == content {
                 tableContent.append(documentation)
@@ -142,7 +136,17 @@ class SwiftTableViewController: UITableViewController, UISearchBarDelegate {
                         guard let searchUn = self?.search[indexPath.row] else {return}
                         
                         try! CoreDataStackDocumentation.deleteDocumentation(documentation: searchUn)
-                        self?.loadData()
+                        
+                        if let tableContentUn = self?.tableContent {
+                            for i in 0..<tableContentUn.count {
+                                if tableContentUn[i] == searchUn {
+                                    self?.tableContent.remove(at: i)
+                                }
+                            }
+                        }
+                        
+                        self?.search = self!.tableContent
+                        
                         self?.tableView.reloadData()
                     }))
                     ac.addAction(UIAlertAction(title: "Cancelar", style: .cancel, handler: nil))
