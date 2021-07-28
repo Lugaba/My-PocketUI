@@ -88,8 +88,7 @@ class SwiftTableViewController: UITableViewController, UISearchBarDelegate {
             let newDocumentation = try! CoreDataStackDocumentation.createDocumentation(title: newDocumentationTitle, information: "", isEditable: true, myContent: content)
             tableContent.append(newDocumentation)
             search = tableContent
-            let indexPath = IndexPath(row: tableContent.count-1, section: 0)
-            tableView.insertRows(at: [indexPath], with: .automatic)
+            tableView.reloadData()
             try! CoreDataStackDocumentation.saveContext()
         } else {
             let ac = UIAlertController(title: "Nome vazio", message: "Crie um nome para a documentação da maneira correta", preferredStyle: .alert)
