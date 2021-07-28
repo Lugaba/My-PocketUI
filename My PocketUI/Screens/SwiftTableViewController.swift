@@ -141,6 +141,7 @@ class SwiftTableViewController: UITableViewController, UISearchBarDelegate {
                             for i in 0..<tableContentUn.count {
                                 if tableContentUn[i] == searchUn {
                                     self?.tableContent.remove(at: i)
+                                    break
                                 }
                             }
                         }
