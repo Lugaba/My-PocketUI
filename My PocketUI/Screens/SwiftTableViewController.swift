@@ -184,8 +184,11 @@ class SwiftTableViewController: UITableViewController, UISearchBarDelegate {
                 try! CoreDataStackDocumentation.deleteDocumentation(documentation: search[indexPath.row])
                 
                 for i in 0..<tableContent.count {
+                    print(tableContent)
+                    print(i)
                     if tableContent[i] == search[indexPath.row] {
                         tableContent.remove(at: i)
+                        break
                     }
                 }
                 
