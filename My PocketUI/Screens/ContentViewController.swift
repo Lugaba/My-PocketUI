@@ -206,7 +206,7 @@ class ContentViewController: UIViewController {
                 compartilhar.append(newTexto)
             }
         }
-                
+        
         let vc = UIActivityViewController(activityItems: compartilhar, applicationActivities: [])
         vc.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
         present(vc, animated: true)
@@ -228,8 +228,12 @@ class ContentViewController: UIViewController {
     // MARK: - Format Code
     
     func formatCode(code: String) -> NSMutableAttributedString {
-        let palavrasVermelhas = ["var", "let ", "class", "return", "_", "func", "for ", "override", "if ", " in ", "try", "@objc", "self", "true", "false", "else", "import", "nil"]
-        let palavrasAzuis = ["UIViewController", "UITableViewController", "UITableView", " Int", "IndexPath", "UITableViewCell", "UISearchBar", " String", "UICollectionViewDataSource", "UICollectionViewDelegate"]
+        let palavrasVermelhas = ["var", "let ", "class", "return", "_", "func", "for ", "override", "if ", " in ", "try", "@objc", "self", "true", "false", "else", "import", "nil", "private", " as", "#selector", "super"]
+        
+        let palavrasAzuis = ["UIViewController", "UITableViewController", "UITableView", " Int", "IndexPath", "UITableViewCell", "UISearchBar", " String", "UICollectionViewDataSource", "UICollectionViewDelegate", "UIView", "UIButton", "NSMutableAttributedString", "NSRange", "NSRegularExpression", "UIActivityViewController", "NSLayoutConstraint", "UIImage", "UIBarButtonItem", "UIColor", "UIImageView", "UIScrollView", "UITextView", "EditingStyle", "UIAlertAction", "UILongPressGestureRecognizer", "UIAlertController", "UISearchBarDelegate", "UISearchController", "UICollectionView", "UICollectionViewCell"]
+        
+        let palavrasAzuisEscuro = ["present", "navigationController", "instantiateViewController", "storyboard", "pushViewController", "titleLabel", "text", "append", "barButtonItem", "popoverPresentationController", "navigationItem", "rightBarButtonItem", "hasPrefix", "+", "+=", "replacingOccurrences", "topAnchor", "bottomAnchor", "trailingAnchor", "leadingAnchor", "rightAnchor", "leftAnchor", "constraint", "prepare", "translatesAutoresizingMaskIntoConstraints", "backgroundColor", "widthAnchor", "touchUpInside", "normal", " view", "addSubview", "isScrollEnabled", "isEditable", "title ", "navigationBar", "prefersLargeTitles", "never", "largeTitleDisplayMode", "barTintColor", "image ", "contentMode", "titleView"]
+        
         let range = NSRange(location: 0, length: code.utf16.count)
         let mutableAttributedString = NSMutableAttributedString.init(string: code)
         
@@ -244,6 +248,15 @@ class ContentViewController: UIViewController {
             let regex = try? NSRegularExpression(pattern: word)
             for rangeVar in regex!.matches(in: code, range: range) {
                 mutableAttributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor(red: 0.00, green: 0.28, blue: 0.75, alpha: 1.00), range: rangeVar.range)
+            }
+        }
+        
+        for word in palavrasAzuisEscuro {
+            let regex = try? NSRegularExpression(pattern: word)
+            if regex != nil {
+                for rangeVar in regex!.matches(in: code, range: range) {
+                    mutableAttributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor(red: 0.03, green: 0.24, blue: 0.36, alpha: 1.00), range: rangeVar.range)
+                }
             }
         }
         
