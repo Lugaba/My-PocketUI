@@ -18,13 +18,13 @@ class ContentViewController: UIViewController {
     let scrollView: UIScrollView = {
         let v = UIScrollView()
         v.translatesAutoresizingMaskIntoConstraints = false
-        v.backgroundColor = UIColor(red: 0.95, green: 0.95, blue: 0.97, alpha: 1.00)
+        v.backgroundColor = UIColor(named: "bgColor")
         return v
     }()
     
     override func loadView() {
         view = UIView()
-        view.backgroundColor = UIColor(red: 0.95, green: 0.95, blue: 0.97, alpha: 1.00)
+        //view.backgroundColor = UIColor(red: 0.95, green: 0.95, blue: 0.97, alpha: 1.00)
         loadText()
         
         title = documentacao.title
@@ -81,7 +81,6 @@ class ContentViewController: UIViewController {
                         elemento.translatesAutoresizingMaskIntoConstraints = false
                         elemento.text = i
                         elemento.numberOfLines = 0
-                        elemento.textColor = .black
                         scrollView.addSubview(elemento)
                         views.append(elemento)
                         
