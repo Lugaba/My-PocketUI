@@ -50,7 +50,6 @@ class ViewController: UIViewController, UISearchBarDelegate, UICollectionViewDat
             for item in listContent[0] {
                 if item.lowercased().contains(searchText.lowercased()) {
                     search[0].append(item)
-                    print("teste \(search[0])")
                 }
             }
             for item in listContent[1] {
@@ -91,7 +90,6 @@ class ViewController: UIViewController, UISearchBarDelegate, UICollectionViewDat
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView == barsCollection {
-            print("teste \(search[0].count)")
             return search[0].count
         } else if collectionView == viewsCollection {
             return search[1].count
@@ -102,7 +100,6 @@ class ViewController: UIViewController, UISearchBarDelegate, UICollectionViewDat
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == barsCollection {
-            print("teste entrei aqui")
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "BarsCell", for: indexPath) as! BarCollectionViewCell
             cell.imagem.image = UIImage(named: search[0][indexPath.item])
             cell.layer.cornerRadius = 15

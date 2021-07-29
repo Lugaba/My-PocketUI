@@ -27,11 +27,6 @@ class SwiftTableViewController: UITableViewController, UISearchBarDelegate {
         
         loadData()
         
-        //for i in try! CoreDataStackDocumentation.getDocumentations() {
-        //print(i.title)
-        //try! CoreDataStackDocumentation.deleteDocumentation(documentation: i)
-        //}
-        
         title = content
         
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addLine))
