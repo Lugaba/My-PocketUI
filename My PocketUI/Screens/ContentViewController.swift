@@ -24,7 +24,7 @@ class ContentViewController: UIViewController {
     
     override func loadView() {
         view = UIView()
-        //view.backgroundColor = UIColor(red: 0.95, green: 0.95, blue: 0.97, alpha: 1.00)
+        view.backgroundColor = UIColor(named: "bgColor")
         loadText()
         
         title = documentacao.title
@@ -231,7 +231,7 @@ class ContentViewController: UIViewController {
         
         let palavrasAzuis = ["UIViewController", "UITableViewController", "UITableView", " Int", "IndexPath", "UITableViewCell", "UISearchBar", " String", "UICollectionViewDataSource", "UICollectionViewDelegate", "UIView", "UIButton", "NSMutableAttributedString", "NSRange", "NSRegularExpression", "UIActivityViewController", "NSLayoutConstraint", "UIImage", "UIBarButtonItem", "UIColor", "UIImageView", "UIScrollView", "UITextView", "EditingStyle", "UIAlertAction", "UILongPressGestureRecognizer", "UIAlertController", "UISearchBarDelegate", "UISearchController", "UICollectionView", "UICollectionViewCell"]
         
-        let palavrasAzuisEscuro = ["present", "navigationController", "instantiateViewController", "storyboard", "pushViewController", "titleLabel", "text", "append", "barButtonItem", "popoverPresentationController", "navigationItem", "rightBarButtonItem", "hasPrefix", "+", "+=", "replacingOccurrences", "topAnchor", "bottomAnchor", "trailingAnchor", "leadingAnchor", "rightAnchor", "leftAnchor", "constraint", "prepare", "translatesAutoresizingMaskIntoConstraints", "backgroundColor", "widthAnchor", "touchUpInside", "normal", " view", "addSubview", "isScrollEnabled", "isEditable", "title ", "navigationBar", "prefersLargeTitles", "never", "largeTitleDisplayMode", "barTintColor", "image ", "contentMode", "titleView"]
+        let palavrasAzuisEscuro = ["present", "navigationController", "instantiateViewController", "storyboard", "pushViewController", "titleLabel", "text ", "append", "barButtonItem", "popoverPresentationController", "navigationItem", "rightBarButtonItem", "hasPrefix", "+", "+=", "replacingOccurrences", "topAnchor", "bottomAnchor", "trailingAnchor", "leadingAnchor", "rightAnchor", "leftAnchor", "constraint", "prepare", "translatesAutoresizingMaskIntoConstraints", "backgroundColor", "widthAnchor", "touchUpInside", "normal", " view", "addSubview", "isScrollEnabled", "isEditable", "title ", "navigationBar", "prefersLargeTitles", "never", "largeTitleDisplayMode", "barTintColor", "image ", "contentMode", "titleView"]
         
         let range = NSRange(location: 0, length: code.utf16.count)
         let mutableAttributedString = NSMutableAttributedString.init(string: code)

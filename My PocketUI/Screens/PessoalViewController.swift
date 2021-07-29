@@ -9,13 +9,11 @@ import UIKit
 
 
 
-class PessoalViewController: UIViewController, UISearchBarDelegate, UICollectionViewDataSource, UICollectionViewDelegate {
+class PessoalViewController: UICollectionViewController, UISearchBarDelegate {
     let searchController = UISearchController(searchResultsController: nil)
     var search = [Content]()
     var colors: [UIColor] = [UIColor(red: 0.77, green: 0.25, blue: 0.25, alpha: 1.00), UIColor(red: 0.80, green: 0.00, blue: 0.00, alpha: 1.00), UIColor(red: 0.38, green: 0.66, blue: 0.85, alpha: 1.00), UIColor(red: 0.00, green: 0.28, blue: 0.75, alpha: 1.00), UIColor(red: 0.03, green: 0.24, blue: 0.36, alpha: 1.00)]
     var contadorCor = 0
-
-    @IBOutlet weak var pessoalCollection: UICollectionView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,9 +31,14 @@ class PessoalViewController: UIViewController, UISearchBarDelegate, UICollection
         searchController.searchBar.delegate = self
         
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPress(sender:)))
-        pessoalCollection.addGestureRecognizer(longPress)
+        collectionView.addGestureRecognizer(longPress)
         
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        loadData()
+        collectionView.reloadData()
     }
     
     func loadData() {
@@ -66,7 +69,7 @@ class PessoalViewController: UIViewController, UISearchBarDelegate, UICollection
             _ = try! CoreDataStackContent.createContent(nome: name, textColor: "\(Int.random(in: 0...4))")
             search = try! CoreDataStackContent.getContents()
             let indexPath = IndexPath(row: search.count-1, section: 0)
-            pessoalCollection.insertItems(at: [indexPath])
+            collectionView.insertItems(at: [indexPath])
         } else {
             let ac = UIAlertController(title: "Nome vazio", message: "Crie um nome para o conteúdo da maneira correta", preferredStyle: .alert)
             ac.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
@@ -87,19 +90,19 @@ class PessoalViewController: UIViewController, UISearchBarDelegate, UICollection
                 }
             }
         }
-        pessoalCollection.reloadData()
+        collectionView.reloadData()
     }
     
     /// Reinicia o filtro quando inicia a edicao da searchBar
     /// - Parameter searchBar: searchBar criada
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         search = try! CoreDataStackContent.getContents()
-        pessoalCollection.reloadData()
+        collectionView.reloadData()
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         search = try! CoreDataStackContent.getContents()
-        pessoalCollection.reloadData()
+        collectionView.reloadData()
     }
     
     // MARK: - Delete content (LongGesture)
@@ -108,8 +111,8 @@ class PessoalViewController: UIViewController, UISearchBarDelegate, UICollection
     /// - Parameter sender: Linha da tableView que foi pressionada por um tempo (LongPressGesture)
     @objc private func handleLongPress(sender: UILongPressGestureRecognizer) {
         if sender.state == .began {
-            let touchPoint = sender.location(in: pessoalCollection)
-            if let indexPath = pessoalCollection.indexPathForItem(at: touchPoint) {
+            let touchPoint = sender.location(in: collectionView)
+            if let indexPath = collectionView.indexPathForItem(at: touchPoint) {
                 let ac = UIAlertController(title: "Deletar todo o conteúdo de '\(search[indexPath.item].nome ?? "NONE")'", message: nil, preferredStyle: .actionSheet)
                 ac.addAction(UIAlertAction(title: "Confirmar", style: .destructive, handler: {
                     [weak self] action in
@@ -127,7 +130,7 @@ class PessoalViewController: UIViewController, UISearchBarDelegate, UICollection
                     try! CoreDataStackContent.deleteContent(content: search[indexPath.row])
                     self?.search = try! CoreDataStackContent.getContents()
                     
-                    self?.pessoalCollection.reloadData()
+                    self?.collectionView.reloadData()
                 }))
                 ac.addAction(UIAlertAction(title: "Cancelar", style: .cancel, handler: nil))
                 present(ac, animated: true)
@@ -137,11 +140,11 @@ class PessoalViewController: UIViewController, UISearchBarDelegate, UICollection
     
     // MARK: - Collection functions
     
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return search.count
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PessoalCell", for: indexPath) as! PessoalCollectionViewCell
         let cor = Int(search[indexPath.item].textColor!)
         cell.name.text = search[indexPath.item].nome
@@ -151,12 +154,14 @@ class PessoalViewController: UIViewController, UISearchBarDelegate, UICollection
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let vc = storyboard?.instantiateViewController(identifier: "listOfContent") as? SwiftTableViewController {
             vc.content = search[indexPath.item].nome!
             navigationController?.pushViewController(vc, animated: true)
         }
     }
+    
+    // MARK: - Navigation
     
     @objc func goToInfo() {
         if let vc = storyboard?.instantiateViewController(identifier: "tableViewInfo") as? TableInfoViewController {
@@ -166,7 +171,7 @@ class PessoalViewController: UIViewController, UISearchBarDelegate, UICollection
     }
 
     /*
-    // MARK: - Navigation
+    
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

@@ -46,6 +46,11 @@ class SwiftTableViewController: UITableViewController, UISearchBarDelegate {
         tableView.addGestureRecognizer(longPress)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        loadData()
+        tableView.reloadData()
+    }
+    
     func loadData() {
         tableContent.removeAll()
         
