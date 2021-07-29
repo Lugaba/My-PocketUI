@@ -18,6 +18,7 @@
 		DF7056C126A9E90600044DB0 /* Content+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7056BF26A9E90600044DB0 /* Content+CoreDataProperties.swift */; };
 		DF7056C326A9E91300044DB0 /* CoreDataContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7056C226A9E91300044DB0 /* CoreDataContent.swift */; };
 		DF7056C726AF544500044DB0 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7056C626AF544500044DB0 /* InfoViewController.swift */; };
+		DF7056D326B2D56F00044DB0 /* TableInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7056D226B2D56F00044DB0 /* TableInfoViewController.swift */; };
 		DF7FEA2726A83F0E00D47382 /* PessoalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7FEA2626A83F0E00D47382 /* PessoalViewController.swift */; };
 		DF7FEA2926A83FFE00D47382 /* PessoalCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF7FEA2826A83FFE00D47382 /* PessoalCollectionViewCell.swift */; };
 		DFA4EE9F26A75667001E7EF1 /* classStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFA4EE9E26A75667001E7EF1 /* classStruct.swift */; };
@@ -47,6 +48,7 @@
 		DF7056BF26A9E90600044DB0 /* Content+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Content+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		DF7056C226A9E91300044DB0 /* CoreDataContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataContent.swift; sourceTree = "<group>"; };
 		DF7056C626AF544500044DB0 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
+		DF7056D226B2D56F00044DB0 /* TableInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableInfoViewController.swift; sourceTree = "<group>"; };
 		DF7FEA2626A83F0E00D47382 /* PessoalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PessoalViewController.swift; sourceTree = "<group>"; };
 		DF7FEA2826A83FFE00D47382 /* PessoalCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PessoalCollectionViewCell.swift; sourceTree = "<group>"; };
 		DFA4EE9E26A75667001E7EF1 /* classStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = classStruct.swift; sourceTree = "<group>"; };
@@ -87,6 +89,7 @@
 				DF7FEA2626A83F0E00D47382 /* PessoalViewController.swift */,
 				DF4ED35C26A89FC800CBB765 /* ContentViewController.swift */,
 				DF7056C626AF544500044DB0 /* InfoViewController.swift */,
+				DF7056D226B2D56F00044DB0 /* TableInfoViewController.swift */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -232,6 +235,7 @@
 				DFD4ED0026A4BA94004E46B7 /* ViewController.swift in Sources */,
 				DF7056C026A9E90600044DB0 /* Content+CoreDataClass.swift in Sources */,
 				DF7056BD26A9DAA600044DB0 /* CoreDataDocumentation.swift in Sources */,
+				DF7056D326B2D56F00044DB0 /* TableInfoViewController.swift in Sources */,
 				DF7056C126A9E90600044DB0 /* Content+CoreDataProperties.swift in Sources */,
 				DFD4ED3F26A60756004E46B7 /* BarCollectionViewCell.swift in Sources */,
 				DFD4ED1026A4C739004E46B7 /* SwiftTableViewController.swift in Sources */,

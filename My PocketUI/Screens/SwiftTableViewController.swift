@@ -36,7 +36,8 @@ class SwiftTableViewController: UITableViewController, UISearchBarDelegate {
         
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addLine))
         addButton.tintColor = UIColor(red: 0.77, green: 0.25, blue: 0.25, alpha: 1.00)
-        navigationItem.rightBarButtonItems = [addButton]
+        let infoButton = UIBarButtonItem(image: UIImage(systemName: "questionmark.circle"), style: .done, target: self, action: #selector(goToInfo))
+        navigationItem.rightBarButtonItems = [addButton, infoButton]
         
         navigationItem.searchController = searchController
         searchController.searchBar.delegate = self
@@ -152,6 +153,10 @@ class SwiftTableViewController: UITableViewController, UISearchBarDelegate {
                     }))
                     ac.addAction(UIAlertAction(title: "Cancelar", style: .cancel, handler: nil))
                     present(ac, animated: true)
+                } else {
+                    let ac = UIAlertController(title: "Não é possível deletar", message: nil, preferredStyle: .actionSheet)
+                    ac.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+                    present(ac, animated: true)
                 }
             }
         }
@@ -185,8 +190,6 @@ class SwiftTableViewController: UITableViewController, UISearchBarDelegate {
                 try! CoreDataStackDocumentation.deleteDocumentation(documentation: search[indexPath.row])
                 
                 for i in 0..<tableContent.count {
-                    print(tableContent)
-                    print(i)
                     if tableContent[i] == search[indexPath.row] {
                         tableContent.remove(at: i)
                         break
@@ -208,4 +211,10 @@ class SwiftTableViewController: UITableViewController, UISearchBarDelegate {
         }
     }
     
+    @objc func goToInfo() {
+        if let vc = storyboard?.instantiateViewController(identifier: "tableViewInfo") as? TableInfoViewController {
+            vc.tag = 1
+            navigationController?.present(vc, animated: true)
+        }
+    }
 }

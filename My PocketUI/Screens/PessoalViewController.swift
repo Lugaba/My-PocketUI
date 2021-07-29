@@ -26,7 +26,8 @@ class PessoalViewController: UIViewController, UISearchBarDelegate, UICollection
         
         let addButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addLine))
         addButton.tintColor = UIColor(red: 0.77, green: 0.25, blue: 0.25, alpha: 1.00)
-        navigationItem.rightBarButtonItems = [addButton]
+        let infoButton = UIBarButtonItem(image: UIImage(systemName: "questionmark.circle"), style: .done, target: self, action: #selector(goToInfo))
+        navigationItem.rightBarButtonItems = [addButton, infoButton]
         
         navigationItem.searchController = searchController
         searchController.searchBar.delegate = self
@@ -154,6 +155,13 @@ class PessoalViewController: UIViewController, UISearchBarDelegate, UICollection
         if let vc = storyboard?.instantiateViewController(identifier: "listOfContent") as? SwiftTableViewController {
             vc.content = search[indexPath.item].nome!
             navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+    
+    @objc func goToInfo() {
+        if let vc = storyboard?.instantiateViewController(identifier: "tableViewInfo") as? TableInfoViewController {
+            vc.tag = 2
+            navigationController?.present(vc, animated: true)
         }
     }
 
