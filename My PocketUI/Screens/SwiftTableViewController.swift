@@ -130,7 +130,7 @@ class SwiftTableViewController: UITableViewController, UISearchBarDelegate {
             if let indexPath = tableView.indexPathForRow(at: touchPoint) {
                 if search[indexPath.row].isEditable == true {
                     let ac = UIAlertController(title: "Deletar a documentação '\(search[indexPath.row].title ?? "NONE")'", message: nil, preferredStyle: .actionSheet)
-                    ac.addAction(UIAlertAction(title: "Confirmar", style: .destructive, handler: {
+                    ac.addAction(UIAlertAction(title: "Deletar", style: .destructive, handler: {
                         [weak self] action in
                         
                         
@@ -185,20 +185,30 @@ class SwiftTableViewController: UITableViewController, UISearchBarDelegate {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if search[indexPath.row].isEditable == true {
             if editingStyle == UITableViewCell.EditingStyle.delete {
-                
-                
-                try! CoreDataStackDocumentation.deleteDocumentation(documentation: search[indexPath.row])
-                
-                for i in 0..<tableContent.count {
-                    if tableContent[i] == search[indexPath.row] {
-                        tableContent.remove(at: i)
-                        break
+                let ac = UIAlertController(title: "Deletar a documentação '\(search[indexPath.row].title ?? "NONE")'?", message: nil, preferredStyle: .actionSheet)
+                ac.addAction(UIAlertAction(title: "Deletar", style: .destructive, handler: {
+                    [weak self] action in
+                    
+                    
+                    guard let searchUn = self?.search[indexPath.row] else {return}
+                    
+                    try! CoreDataStackDocumentation.deleteDocumentation(documentation: searchUn)
+                    
+                    if let tableContentUn = self?.tableContent {
+                        for i in 0..<tableContentUn.count {
+                            if tableContentUn[i] == searchUn {
+                                self?.tableContent.remove(at: i)
+                                break
+                            }
+                        }
                     }
-                }
-                
-                search = tableContent
-                
-                tableView.reloadData()
+                    
+                    self?.search = self!.tableContent
+                    
+                    self?.tableView.reloadData()
+                }))
+                ac.addAction(UIAlertAction(title: "Cancelar", style: .cancel, handler: nil))
+                present(ac, animated: true)
             }
         }
     }

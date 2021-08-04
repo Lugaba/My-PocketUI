@@ -13,7 +13,6 @@ class PessoalViewController: UICollectionViewController, UISearchBarDelegate {
     let searchController = UISearchController(searchResultsController: nil)
     var search = [Content]()
     var colors: [UIColor] = [UIColor(red: 0.77, green: 0.25, blue: 0.25, alpha: 1.00), UIColor(red: 0.80, green: 0.00, blue: 0.00, alpha: 1.00), UIColor(red: 0.38, green: 0.66, blue: 0.85, alpha: 1.00), UIColor(red: 0.00, green: 0.28, blue: 0.75, alpha: 1.00), UIColor(red: 0.03, green: 0.24, blue: 0.36, alpha: 1.00)]
-    var contadorCor = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -113,8 +112,8 @@ class PessoalViewController: UICollectionViewController, UISearchBarDelegate {
         if sender.state == .began {
             let touchPoint = sender.location(in: collectionView)
             if let indexPath = collectionView.indexPathForItem(at: touchPoint) {
-                let ac = UIAlertController(title: "Deletar todo o conteúdo de '\(search[indexPath.item].nome ?? "NONE")'", message: nil, preferredStyle: .actionSheet)
-                ac.addAction(UIAlertAction(title: "Confirmar", style: .destructive, handler: {
+                let ac = UIAlertController(title: "Deletar todo o conteúdo de '\(search[indexPath.item].nome ?? "NONE")?'", message: nil, preferredStyle: .actionSheet)
+                ac.addAction(UIAlertAction(title: "Deletar", style: .destructive, handler: {
                     [weak self] action in
                     
                     let documentations = try! CoreDataStackDocumentation.getDocumentations()
@@ -141,23 +140,36 @@ class PessoalViewController: UICollectionViewController, UISearchBarDelegate {
     // MARK: - Collection functions
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return search.count
+        if try! CoreDataStackContent.getContents().count == 0 {
+            return 1
+        } else {
+            return search.count
+        }
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PessoalCell", for: indexPath) as! PessoalCollectionViewCell
-        let cor = Int(search[indexPath.item].textColor!)
-        cell.name.text = search[indexPath.item].nome
-        cell.name.textColor = colors[cor!]
-        cell.layer.cornerRadius = 15
-        contadorCor += 1
+        if try! CoreDataStackContent.getContents().count == 0 {
+            cell.name.text = "Adicione conteúdo no +"
+            cell.name.textColor = UIColor(red: 0.00, green: 0.28, blue: 0.75, alpha: 1.00)
+            cell.layer.cornerRadius = 15
+        } else {
+            let cor = Int(search[indexPath.item].textColor!)
+            cell.name.text = search[indexPath.item].nome
+            cell.name.textColor = colors[cor!]
+            cell.layer.cornerRadius = 15
+        }
         return cell
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        if let vc = storyboard?.instantiateViewController(identifier: "listOfContent") as? SwiftTableViewController {
-            vc.content = search[indexPath.item].nome!
-            navigationController?.pushViewController(vc, animated: true)
+        if try! CoreDataStackContent.getContents().count == 0 {
+            addLine()
+        } else {
+            if let vc = storyboard?.instantiateViewController(identifier: "listOfContent") as? SwiftTableViewController {
+                vc.content = search[indexPath.item].nome!
+                navigationController?.pushViewController(vc, animated: true)
+            }
         }
     }
     

@@ -66,7 +66,7 @@ class ContentViewController: UIViewController {
                         elemento.isScrollEnabled = false
                         scrollView.addSubview(elemento)
                         views.append(elemento)
-                    } else if i.hasPrefix("https") || i.hasPrefix("Https"){
+                    } else if i.trimmingCharacters(in: .whitespacesAndNewlines).hasPrefix("https") || i.trimmingCharacters(in: .whitespacesAndNewlines).hasPrefix("Https") || i.trimmingCharacters(in: .whitespacesAndNewlines).hasPrefix("www"){
                         let elemento = UIButton()
                         elemento.translatesAutoresizingMaskIntoConstraints = false
                         elemento.setTitle(i, for: .normal)
@@ -188,7 +188,14 @@ class ContentViewController: UIViewController {
     }
     
     @objc func cancelEdit() {
-        loadView()
+        let ac = UIAlertController(title: "Tem certeza?", message: "Ao cancelar as modificações serão perdidas.", preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "Sim", style: .destructive) {
+            [weak self] _ in
+            self?.loadView()
+        })
+        ac.addAction(UIAlertAction(title: "Voltar", style: .default))
+        
+        present(ac, animated: true)
     }
     
     // MARK: - Share

@@ -23,6 +23,7 @@ class WebViewController: UIViewController, WKNavigationDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        urlString = urlString.trimmingCharacters(in: .whitespacesAndNewlines)
 
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareTapped))
         navigationItem.rightBarButtonItem?.tintColor = UIColor(red: 0.77, green: 0.25, blue: 0.25, alpha: 1.00)
@@ -45,6 +46,9 @@ class WebViewController: UIViewController, WKNavigationDelegate {
 
         webView.addObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress), options: .new, context: nil)
 
+        if urlString.hasPrefix("www") {
+            urlString = "https://" + urlString
+        }
         
         let url = URL(string: urlString)!
         webView.load(URLRequest(url: url))
