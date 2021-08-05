@@ -112,27 +112,29 @@ class PessoalViewController: UICollectionViewController, UISearchBarDelegate {
         if sender.state == .began {
             let touchPoint = sender.location(in: collectionView)
             if let indexPath = collectionView.indexPathForItem(at: touchPoint) {
-                let ac = UIAlertController(title: "Deletar todo o conteúdo de '\(search[indexPath.item].nome ?? "NONE")?'", message: nil, preferredStyle: .actionSheet)
-                ac.addAction(UIAlertAction(title: "Deletar", style: .destructive, handler: {
-                    [weak self] action in
-                    
-                    let documentations = try! CoreDataStackDocumentation.getDocumentations()
-                    for documentation in documentations {
-                        guard let myContentUn = documentation.myContent else {return}
-                        if myContentUn == self?.search[indexPath.item].nome {
-                            try! CoreDataStackDocumentation.deleteDocumentation(documentation: documentation)
+                if try! CoreDataStackContent.getContents().count != 0 {
+                    let ac = UIAlertController(title: "Deletar todo o conteúdo de '\(search[indexPath.item].nome ?? "NONE")?'", message: nil, preferredStyle: .actionSheet)
+                    ac.addAction(UIAlertAction(title: "Deletar", style: .destructive, handler: {
+                        [weak self] action in
+                        
+                        let documentations = try! CoreDataStackDocumentation.getDocumentations()
+                        for documentation in documentations {
+                            guard let myContentUn = documentation.myContent else {return}
+                            if myContentUn == self?.search[indexPath.item].nome {
+                                try! CoreDataStackDocumentation.deleteDocumentation(documentation: documentation)
+                            }
                         }
-                    }
-                    
-                    guard let search = self?.search else {return}
-                    
-                    try! CoreDataStackContent.deleteContent(content: search[indexPath.row])
-                    self?.search = try! CoreDataStackContent.getContents()
-                    
-                    self?.collectionView.reloadData()
-                }))
-                ac.addAction(UIAlertAction(title: "Cancelar", style: .cancel, handler: nil))
-                present(ac, animated: true)
+                        
+                        guard let search = self?.search else {return}
+                        
+                        try! CoreDataStackContent.deleteContent(content: search[indexPath.row])
+                        self?.search = try! CoreDataStackContent.getContents()
+                        
+                        self?.collectionView.reloadData()
+                    }))
+                    ac.addAction(UIAlertAction(title: "Cancelar", style: .cancel, handler: nil))
+                    present(ac, animated: true)
+                }
             }
         }
     }

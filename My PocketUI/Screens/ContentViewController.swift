@@ -188,12 +188,12 @@ class ContentViewController: UIViewController {
     }
     
     @objc func cancelEdit() {
-        let ac = UIAlertController(title: "Tem certeza?", message: "Ao cancelar as modificações serão perdidas.", preferredStyle: .alert)
-        ac.addAction(UIAlertAction(title: "Sim", style: .destructive) {
+        let ac = UIAlertController(title: "Tem certeza?", message: "Ao cancelar as modificações serão perdidas.", preferredStyle: .actionSheet)
+        ac.addAction(UIAlertAction(title: "Descartar modificações", style: .destructive) {
             [weak self] _ in
             self?.loadView()
         })
-        ac.addAction(UIAlertAction(title: "Voltar", style: .default))
+        ac.addAction(UIAlertAction(title: "Continuar editando", style: .cancel))
         
         present(ac, animated: true)
     }
